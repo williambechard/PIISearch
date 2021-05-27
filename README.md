@@ -1,7 +1,7 @@
 
 # PIISearch
 SharePoint PII Search script/program
-![PII Search](/PIISearch1.PNG)
+![PII Search](https://github.com/ury2ok2000/PIISearch/blob/2cfa1d25f629d06870417ab2d7979a4db7ebf571/PIISearch1.PNG)
 
 # Requirements
 
