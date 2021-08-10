@@ -1,0 +1,1597 @@
+<style>
+#main{
+    width: 100%;
+    height: 800px;
+}
+#sideNavBox{
+    display:none;
+}
+#critDTContainer{
+    overflow-y:auto;
+}
+#contentBox{
+    margin-left:unset;
+    margin-right:unset;
+}
+.page{
+     height:auto;
+     width:100%;
+     display:none ;
+     min-height:500px;
+}
+.pageContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: space-around;
+    align-content: space-around;
+}
+#vertNav{
+    height:100%;
+    margin-left:-16px;
+    min-width:60px;
+}
+
+.bodyArea{
+    height:auto;
+}
+
+.headerArea{
+    font-weight: bold;
+    color:black!important;
+}
+.w3-button{
+    min-width: 60px;
+}
+#templateNavBTN, #templateDropNavBTN{
+    display:none;
+}
+#sPage{
+    width:100%;
+    height:100%;
+}
+#tileArea{
+    width:100%;
+    height:auto;
+}
+.dataTable tbody{  
+    color:black;
+}
+.dataTable thead{  
+    background-color:grey;
+}
+input[aria-controls^="DataTables"] {
+    background-color:white !important;
+    color:black!important;
+    margin:10px!important;
+    margin-right:0px!important;
+}
+.dataTables_wrapper select{
+    background-color:white !important;
+    color:black!important;
+}
+.tabPage{
+    width:100%;
+    margin:10px;
+    margin-top:10px;
+}
+.dataTables_length, .dataTables_wrapper, .dataTables_filter, .dataTables_info, .dataTables_processing, .dataTables_paginate{
+    color:white !important;
+}
+.tile{
+    margin-top:20px;
+}
+.block{
+    padding:20px;
+    border:2px solid black;
+    border-radius:10px;
+}
+table.dataTable tfoot th, table.dataTable tfoot td{
+    padding:4px !important;
+}
+.dataTables_wrapper .dataTables_paginate{
+    color:white!important;
+}
+ 
+.chosen-select{
+    min-width:99%;
+}
+#rowTemplate{
+    display:none;
+}
+.Path{
+     width:100%;
+     color:black!important;
+}
+.ui-state-highlight { 
+    background-color:yellow!important; 
+    line-height: 22.5px; 
+}
+
+.child1{
+    transform: translateX(20px);
+}
+
+.child2{
+    transform: translateX(40px);
+}
+.locked{
+    background-color:grey !important;
+    cursor:none !important;
+}
+#saveSettingsBTN{
+    border:1px solid green;
+    font-weight: bold;
+}
+.folderBTN{
+    margin-top:4px !important;
+    margin-bottom:4px !important;
+    padding:4px !important;
+}
+
+.fa-pencil-alt:hover{
+    color:orange !important;
+}
+.btnTitle{
+    color:black!important;
+}
+.targetAssigned > thead{
+    background-color: black !important;
+    color:white
+}
+.dtHeader{
+    color:white;
+    font-size:xx-large;
+    font-weight: bold;
+}
+.disabledLink{
+    color:	#C8C8C8!important;
+    pointer-events: none;
+}
+.chartType1{
+    background-color:white;
+    max-height: 450px;
+}
+#mainPage{
+    overflow-y:auto;
+}
+</style>
+ 
+<link rel="stylesheet" href="/sites/20127/grps/sc/quality_assurance/SiteAssets/Scripts/pure-css-navigation.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-deep-purple.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script lang="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js" integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<span id='tempAccord' class="w3-hide btnHeader">
+    <button onclick="openAccord(this); return false;" class="w3-btn w3-block w3-light-grey w3-left-align" style="margin-top:8px!important; margin-bottom:8px!important;"><i onclick="makeEditable(this); return false;" class='fa fa-pencil-alt' style="padding-right:8px;" aria-hidden="true"></i><input  class="btnTitle" value="BLANK" disabled onfocusout="textLostFocus(this);" onKeypress="editKeypress(this);"  onclick="inputClick=true;"></button>
+    <div class="w3-container containerBody" style="display:none; height:auto; border:2px solid grey; transform:translateY(-10px);">
+        <button class="w3-green folderBTN" onclick="addFolder(this);return false;">+</button>
+        <div class='w3-container URLs' style="margin-bottom:10px; display:flex; flex-direction:row; justify-content:space-evenly; align-items: center; align-content:space-around;">
+            <div class='w3-container' style="width:100%;">
+                <div class='w3-card w3-white' style="width:100%;">
+                    <select style='width:75%;'><option value="" selected disabled hidden>Select URL</option></select>
+                    <button class='w3-button' onclick="AssignURL(this); return false;" style="width:10%;"><i class='fa fa-arrow-right'></i></button>
+                </div>
+            </div>
+            <div class='w3-container'  style="width:100%;">
+                <table class='w3-table-all w3-card targetAssigned' style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th style='background-color:grey;'>Assigned</th><th style="background-color:grey;"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</span>
+<div class="w3-container w3-theme-l1 w3-row" id="main">
+    <div id='vertNav' class="nav w3-bar-block w3-theme-d5 w3-col" style="width: 5%;">
+        <div type="button"  class="w3-button w3-bar-item" targetHTML='mainPage' onclick="changeTab('page', 'w3-theme-l1', this);return false;" id="homeButton"><i class="fa fa-home fa-2x" ></i></div>
+        <div type="button"  class="w3-button w3-bar-item" targetHTML='settingsPage' onclick="changeTab('page', 'w3-theme-l1', this);return false;"><i class="fa fa-cogs fa-2x" ></i></div>  
+        <div type="button"  class="w3-button w3-bar-item" targetHTML='critPage' onclick="changeTab('page', 'w3-theme-l1', this);return false;"><i class="fa fa-heartbeat fa-2x" ></i></div>  
+    </div>
+    <div class="pageContainer w3-rest">   
+          <div class="w3-card-4 page w3-theme-l2" id="mainPage">
+              <div class='w3-container w3-theme-l3 w3-center'><h2><span class="headerArea">Home</span></h2></div>
+              <div class="pure-css-nav">
+                <nav id='navListArea'> 
+                </nav>
+            </div>
+              <div class="bodyArea w3-card-4 w3-theme-l2">
+                <div class='w3-container w3-theme-d2' id='tileArea'>
+                    <div class="tile" id="templateTile">
+                    </div>
+                </div>
+              </div>
+          </div>
+          <div class="w3-card-4 page w3-theme-l2" id="critPage">
+            <div class='w3-container w3-theme-l3 w3-center'><h2><span class="headerArea">Overall Health</span></h2></div>
+            <div class="bodyArea w3-card-4 w3-theme-l2">
+                <div id='cPage' class='w3-container w3-theme-l2'>
+                    <!-- Data TABLE -->
+                    <div class="block w3-theme-d5" id="critDTContainer">    
+                        <table class="display" style="width:100%;">    
+                            <thead>
+                            <tr></tr>          
+                            </thead>    
+                            <tfoot>
+                            <tr></tr>    
+                            </tfoot>    
+                        </table>    
+                    </div>
+                </div> 
+            </div>
+          </div>
+          <div class="w3-card-4 page w3-theme-l2" id="settingsPage">
+            <div class='w3-container w3-theme-l3 w3-center'><h2><span class="headerArea">Settings</span></h2></div>
+            <div class="bodyArea w3-card-4 w3-theme-l2">
+                <div id='sPage' class='w3-container w3-theme-l2'>
+                    <div class='w3-theme-d1 w3-card-4' style="width:100%; height:88%; padding:4%; margin-top:2%; margin-bottom:2%; min-height:500px;">
+                        <span class='btnHeader'>
+                        <button id='mainAccord' onclick="openAccord(this); return false;" class="w3-btn w3-block w3-light-grey w3-left-align"><i class='fa fa-pencil-alt' style="padding-right:8px;" onclick="makeEditable(this);  return false;"></i><input class="btnTitle" value="BLANK" disabled onfocusout="textLostFocus(this);" onKeypress="editKeypress(this);"></button>
+                        <div id="MasterAccord" class="w3-container containerBody" style="display:none; max-height:500px; overflow-y:auto; height:auto; padding:10px; border:2px solid grey; transform:translateY(-3px);">
+                            <button class="w3-green folderBTN" onclick="addFolder(this);return false;" >+</button>
+                            <div class='w3-container URLs' style="margin-bottom:10px; display:flex; flex-direction:row; justify-content:space-evenly; align-items: center; align-content:space-around;">
+                                <div class='w3-container' style="width:100%;">
+                                    <div class='w3-card w3-white' style="width:100%; padding:4px;">
+                                        <select style="width:100%;"><option value="" selected disabled hidden>Select URL</option></select>
+                                        <button class='w3-button' onclick="AssignURL(this); return false;"><i class='fa fa-arrow-right'></i></button>
+                                    </div>
+                                </div>
+                                <div class='w3-container' style="width:100%;">
+                                    <table class='w3-table-all w3-card targetAssigned'  style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style='background-color:grey;'>Assigned</th><th style="background-color:grey;"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <input type='button' class='w3-button w3-green w3-right' id='saveSettingsBTN' value="Save" onclick="saveSettings(); return false;" style="margin-top:20px;">
+                    </span>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+<!--Template page-->
+<div id="pageTemplate" class="tab w3-theme-d2" style="display:none;">
+    <div class='greyOut'></div>
+    <div class="loader"></div>
+    <div id='vertNav' class="nav w3-bar-block w3-theme-d5 w3-col" style="width: 5%;">
+        <div type="button"  class="w3-button w3-bar-item w3-theme-l1"  onclick="changeTab2('page', 'w3-theme-l1', this, '0');return false;" id="homeButton"><i class="fa fa-table fa-2x" ></i></div>
+        <div type="button"  class="w3-button w3-bar-item"  onclick="changeTab2('page', 'w3-theme-l1', this, '1');return false;"><i class="fa fa-chart-bar fa-2x" ></i></div>
+        <div type="button"  class="w3-button w3-bar-item"  onclick="changeTab2('page', 'w3-theme-l1', this, '2');return false;"><i class="fa fa-project-diagram fa-2x" ></i></div>    
+    </div>
+    <div class="tabPage">
+        <h3 class='dtHeader w3-center'></h3>
+        <!-- Data TABLE -->
+        <div class="block w3-theme-d5" id="dtContainer">    
+            <table class="display" style="width:100%;">    
+                <thead>
+                    <tr></tr>          
+                </thead>    
+                <tfoot>
+                    <tr></tr>    
+                </tfoot>    
+            </table>    
+        </div>
+        <br>
+        <div style='display:none;' class='block w3-theme-d5 chartCanvas'>
+            <div class='canvasNAV nav w3-bar-block w3-theme-d5 w3-row'></div>
+            <div class='canvasArea'></div>
+        </div>
+        <div style='display:none;' class='relation block w3-theme-d5'>
+        </div>
+        <br>
+    </div>
+</div>
+
+<script>
+    var masterURL='/sites/20127/grps/sc'; ///This is the master location you want the search terms to exist at
+    var list_admin='PIIAdmin';
+    var list_settings ='PIIAdminSettings';
+    var allSettingsData=[];
+    var allItems={};
+    var allOptions = {};
+    var PIIAdminSettingsID=0;
+    var allAssigned = [];
+    var greyScale=[
+        '#BEBEBE',
+        '#A9A9A9',
+        '#909090',
+        '#808080'
+    ];
+    var URLOrg = {};
+    
+    var PIITree = {};
+    var treeDepth= -1;
+    var tData = {};
+
+/// ---------- SETUP
+    function rgb2hex(rgb){
+        rgb = rgb.substr(4, rgb.length-5).replaceAll(' ', '').split(',');
+        console.error('rgb match = ', rgb);
+         return "#" +
+            ("0" + parseInt(rgb[0],10).toString(16)).slice(-2).toUpperCase() +
+            ("0" + parseInt(rgb[1],10).toString(16)).slice(-2).toUpperCase() +
+            ("0" + parseInt(rgb[2],10).toString(16)).slice(-2).toUpperCase();
+    }
+    //as we want to check if lists exist or not, we need to not check until sp.js is loaded
+    ExecuteOrDelayUntilScriptLoaded(listCheck, "sp.js");
+    
+    function removeAssigned(e){
+        var targetURL = $(e).closest('td').prev().text();
+        $(e).closest('tr').remove();
+        //now go through and remove this item from ALL Selects
+        $.each($('#MasterAccord').find('select'), function(i,v){
+            console.log(' v found = ', v);
+            $(v).append('<option value="'+ targetURL +'">'+ targetURL + '</option>');
+        });
+    }
+
+    function AssignURL(e){
+        //verify a proper option is selected
+
+        var selectedValue = $(e).prev().find('option:selected').val();
+
+        if(selectedValue !='' ){
+
+            //remove from all lists and add to only this Assigned area
+            $(e).closest('.URLs').find('.targetAssigned tbody').append('<tr><td style="color:black!important; white-space:nowrap;">'+selectedValue +'</td><td><button onclick="removeAssigned(this); return false;"><i class="fa fa-times"></i></button></td></tr>')
+
+            //no go through and remove this item from ALL Selects
+            $.each($('#MasterAccord').find('select'), function(i,v){
+                $(v).children('option[value="'+ selectedValue +'"]').remove();
+            });
+        }
+    }
+  
+function createHealthTable( Data, Columns){
+    Data = [].concat.apply([], Data);
+    //loop through and gather all data
+    console.error('DT !2 ', Data);
+
+    
+    var cData = Columns.map(function(v){
+            //ensure that all data has a prop for every column
+            $.each(Data, function(item, value){
+                if(!value.hasOwnProperty(v)) value[v]='';
+            });
+            return {'mData':v};
+    });
+    console.error('DT! ', cData);
+  
+    var targetTable = $('#critDTContainer').find('table.display');
+
+    console.log('targetTABLE ', targetTable);
+
+    //create the Header/Footer
+    var tableHeader = targetTable.find('thead').find('tr');
+    var tableFooter = targetTable.find('tfoot').find('tr');
+    //only need to do 1x b/c it is the header/footer
+    $.each(Columns, function(index, value){
+        tableHeader.append('<th>'+value +'</th>');
+        tableFooter.append('<th>'+value +'</th>');
+    });	
+
+     //create the actual data table
+     try { 
+            targetTable.DataTable({    
+          	    "bAutoWidth": false, //we want to control the width of our columns specifically, if we were ok with a standardard width we could set this to true
+          		"aaData": Data,  //this is the ajax data that we are passing in
+                "aoColumns": cData,
+                initComplete: function () {
+            			this.api().columns().every( function (index) {
+ 
+             			    var column = this;
+             			    var select = $('<select data-placeholder="Filter" size="2" multiple class="chosen-select"><option value=""></option></select>')
+               			    .appendTo( $(column.footer()).empty() )
+               			    .on( 'change', function () {
+                   			    var val = $(this).val()+ "";
+                   			    val =  val.replace(/,/g, '|');
+                   			    column.search( val ? '^'+val+'$' : '', true, false).draw();
+               			    });
+                            
+                            select.attr('colName',$(this.header()).text());
+                               
+                            column.data().unique().sort().each( function ( d, j ) {
+                        	    select.append( '<option value="'+d+'">'+d+'</option>' );      
+                            });
+           				});
+                },
+                createdRow:function(row, d, dIndex){
+                    //add SPID
+                    //$(row).attr('SPID', d.SPID);
+                    //console.log(' d  =', d);
+                }
+            });
+            var allSelect = targetTable.find('.chosen-select');
+	
+    			for(var i = 1; i < allSelect.length-1; i++){
+                    $(allSelect[i]).find('option:first-child').html('All');
+                }
+
+                allSelect.chosen({width:'100%'});
+    }
+    catch(error){ console.log('error ' + error); } 
+
+}
+
+    function textLostFocus(e){
+        $(e).attr('disabled', 'disabled');
+    }
+
+    function editKeypress(e){
+        console.log('key press!');
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode==13){
+                console.log('enter detected');
+                $(e).attr('disabled', 'disabled');
+            }
+    }
+
+    function makeEditable(e){
+        var textArea = $(e).next();
+        console.log('text area = ', textArea);
+        textArea.removeAttr('disabled');
+
+        textArea.click();
+        textArea.focus();
+        textArea.select();
+    }
+
+function openAccord(e){
+    
+    console.error('openAccord this 2 = ', $(e)[0]);
+
+    //determine if the child is not being shown
+    var container = $(e).next();
+    console.log('container = ', container);
+    if(container.is(':hidden')) container.show();
+    else container.hide();
+}
+
+
+function addFolder(e){
+    var container =  $(e).closest('.w3-container');
+    console.log('local container = ',  $(e).closest('.w3-container'));
+
+    var newFolder = $('#tempAccord').clone();
+    newFolder.attr('id', '');
+    newFolder.removeClass('w3-hide');
+    console.error('b ', container);
+
+        var rgb =container.css('background-color').replaceAll(' ', '');
+ 
+        var hexValue = rgb2hex(rgb);
+        console.log('return hex = ', hexValue);
+        if(greyScale.indexOf(hexValue)!=-1){
+            console.error('FOUND ', greyScale.indexOf(hexValue));
+            var nextIndex = greyScale.indexOf(hexValue)+1; //yes i know this cancels out
+            if(nextIndex>greyScale.length-1) nextIndex = greyScale.length-1;
+            newFolder.find('.containerBody').css('background-color', greyScale[nextIndex]);
+        }
+
+        container.append(newFolder);
+
+}
+
+    function getAccordItems(target){
+     
+        console.log('tree depth = ', treeDepth);
+        var Tree={};
+        Tree['Title'] = target.find('.btnTitle').val();
+        Tree['children'] = [];
+        //see if there are any URLS assigned to this
+        console.log('url table = ', target.find('.URLs:first'));
+        var URLs = [];
+        $(target.find('.URLs:first').find('table')[0]).find('tbody').find('tr').find('td:first').each(function(i,v){
+            console.log('v = ', $(v).text());
+            if($(v).text!=''){
+                URLs.push($(v).text());
+            }
+        });
+
+        console.log('all URLs = ', URLs);
+        Tree['URLs'] = URLs;
+
+        //now loop through all the 
+        console.log('btn headers = ', target.children('.containerBody').children('.btnHeader'));
+        target.children('.containerBody').children('.btnHeader').each(function(i,v){
+            
+            console.log('v  = ', $(v).find('.btnTitle'));
+            //also we need to loop again so...
+            Tree['children'].push(getAccordItems($(v)));
+        });
+
+        return Tree;
+    }
+    
+   treeLevel = {};
+   var firstLoop = true;
+
+    var allData= [];
+
+function changePage(e){
+    console.log('change Page e ',  $(e).find('span:first'));
+    if(!$(e).find('span:first').hasClass('disabledLink')){
+        //hide all tabs
+        $('#templateTile').find('.tab').hide();
+
+        //show just the one we want
+        $('#templateTile').find('#Table_' + $(e).find('.name:first').text()).show();
+    }
+}
+
+    function loadSettings(JSONData, target){
+        console.log('loadSettings Data ', JSONData);
+        console.log('loadSettings target ', target);
+        target.find('.btnTitle').val(JSONData.Title);
+        console.log('Urls ', JSONData.URLs);
+        treeDepth++;
+        var localDepth = treeDepth;
+        var origNavLoc;
+        JSONData['Level'] = localDepth;
+        console.log('tree depth ', localDepth + ' ' + JSONData.Title);
+        allData.push({'Title':JSONData.Title, 'URLs':JSONData.URLs})
+
+        //get the first navPoint
+        var location = $('#navListArea').find('.navPoint');
+
+        if(location.length==0) location = $('#navListArea'); //when we first start we are 
+
+         location.removeClass('navPoint');
+         
+
+         //determine if child ul exists, if so we need to stick to li
+        if(location.is('li') || location.is('nav')){
+            location.append('<ul><li class="navPoint" onclick="changePage(this); event.stopPropagation(); return false;"><span class="name">'+JSONData.Title+'</span></li></ul>');
+        }else location.append('<li class="navPoint" onclick="changePage(this); event.stopPropagation(); return false;"><span class="name">'+JSONData.Title+'</span></li>');
+        var origNavLi =location.find('.navPoint');
+
+        $.each(JSONData.URLs, function(i, v){
+            console.log('url v = ', v);
+            if(v != ''){
+                $(target.find('.URLs:first').find('table')[0]).find('tbody').append('<tr><td style="color:black; white-space:nowrap;">' + v + '</td><td><button onclick="removeAssigned(this); return false;"><i class="fa fa-times"></i></button></td></tr>')
+                allAssigned.push(v);
+            }
+        });
+
+        target.find('.containerBody').css('background-color', greyScale[localDepth]);
+        if( !treeLevel.hasOwnProperty(treeDepth))treeLevel[treeDepth]=[];
+        treeLevel[treeDepth].push(JSONData.Title);
+
+        $.each(JSONData.children, function(i,v){
+            treeDepth= localDepth;
+
+            console.log('JSON Child data ', v);
+            //create the html and send it as the target
+            var container =  $(target).find('.containerBody:first');
+            console.log('local container = ',  container);
+            var newFolder = $('#tempAccord').clone();
+            newFolder.attr('id', '');
+            newFolder.removeClass('w3-hide');
+     
+            container.append(newFolder);
+ 
+            loadSettings(v, newFolder);
+                   //reset the target nav location starting class
+                   $('#navListArea').find('.navPoint').removeClass('navPoint');
+            //if(origNavLi.find('ul:first').length!=0){
+                origNavLi.find('ul:first').addClass('navPoint');
+            //}else 
+        });
+    }
+
+    function saveSettings(){
+        console.log('saveSettings()');
+
+
+        var allSettings = [];
+        var master = $('#sPage').find('#MasterAccord');
+
+        console.log('master = ', master);
+        PIITree = getAccordItems(master.closest('.btnHeader'));
+
+        console.log('piiTree', PIITree);
+        console.log('PIIAdminSettingsID ', PIIAdminSettingsID);
+        //now save tree as JSON
+        if(PIIAdminSettingsID!=-1){
+            SPHUpdateItemByID(list_settings, PIIAdminSettingsID, {'JSON':JSON.stringify(PIITree)}, window.location.origin + masterURL, SPHGetItemType(list_settings)).done(function(d){
+                window.location.reload();
+            }).fail(function(e){ alert('Failed Updating Settings! ' + e.responseText);});;
+        }else{
+            //new item needs to be created
+            SPHCreateListItem(list_settings, {'JSON':JSON.stringify(PIITree)}, window.location.origin + masterURL, SPHGetItemType(list_settings)).done(function(d){
+                window.location.reload();
+            }).fail(function(e){ alert('Failed Creating New Settings!' + e.responseText);});;
+        }
+    }
+
+    function createTile(simpleName, rPos){
+        console.log('name passed to createTile ', simpleName);
+        console.log('rPos passed to createTile ', rPos);
+    
+        var navTab;
+
+        if(rPos=='0'){
+            //main tab
+            //create the main nav Bar item
+            navTab= $('#templateNavBTN').clone();
+        }else{
+            //drop tab
+            navTab= $('#templateDropNavBTN').clone();
+        }
+
+        $(navTab).attr('id', '');
+
+        
+        if(rPos=='0'){
+            console.log('mainTAB    !#@#$   ',$(navTab).find('.mainTAB') );
+        
+            $(navTab).find('.mainTAB').attr('targetHTML', simpleName + '_Tile');
+         
+            $(navTab).find('.mainTAB').html($(navTab).find('.mainTAB').html().replace(/{tileTitle}/, simpleName));
+            //main tab
+            //append to the nav bar after removing the ID
+            $('#horzNav').append(navTab);
+        }else{
+            
+            console.log('childTAB    !#@#$   ',$(navTab) );
+        
+            $(navTab).attr('targetHTML', simpleName + '_Tile');
+         
+            $(navTab).html($(navTab).html().replace(/{tileTitle}/, simpleName));
+            console.log('child tab');
+            //drop tab
+            $('#horzNav').find('.mainTAB').last().next().append(navTab);
+        }
+        
+
+        //create the page
+        var p = $('#templateTile').clone();
+        $(p).attr('id', simpleName+'_Tile');
+        $(p).hide();
+
+        //append to tile area
+        $('#tileArea').append(p);
+
+        return $(p);
+    }
+
+function createRows(){
+    console.log('create ROWs!');
+
+    console.log('all items ', allItems);
+    for(prop in allItems){
+        var row = $('#rowTemplate').clone();
+        $(row).attr('id', '');
+        $(row).show();
+        $(row).find('.Path').val(prop);
+        $(row).find('.Path').prop('title', prop);
+        $('#matchRow').append(row);
+    };
+
+    
+}
+
+function numberToMonth(m){
+    var n='';
+    switch(m){
+        case '1':
+            n='Jan';
+            break;
+        case '2':
+            n='Feb';
+            break;
+        case '3':
+            n='Mar';
+            break;
+        case '4':
+            n='Apr';
+            break;
+        case '5':
+            n='May';
+            break;
+        case '6':
+            n='Jun';
+            break;
+        case '7':
+            n='Jul';
+            break;
+        case '8':
+            n='Aug';
+            break;
+        case '9':
+            n='Sep';
+            break;
+        case '10':
+            n='Oct';
+            break;
+        case '11':
+            n='Nov';
+            break;
+        case '12':
+            n='Dec';
+            break;
+    }
+
+    return n;
+}
+
+function openTab(e){
+    console.error('targetID', $(e).text());
+    $(e).closest('div').find('.canvasArea').children().hide();
+    $(e).closest('div').find('#year_'+ $(e).text()).show();
+}
+
+function findTargetChild(target, Name){
+    console.log('target = ', target);
+    var result = null;
+    if(target.Title==Name) return target;
+    else{
+        $.each(target['children'], function(i,v){
+            var r = findTargetChild(v, Name);
+            if(r!=null) result = r;
+        });
+        return result;
+    }
+}
+
+function averageData(target, Name, PIIResults, URL){
+    var result = null;
+    $.each(target['URLs'], function(i,v){
+        //get url data
+        var t = PIIResults.filter(function(item){return item.Title==URL});
+        if(t.length>0){
+            var j = JSON.parse(t[0].JSON);
+            var avg = (j[j.length-1].Reviewed * 100)/j[j.length-1].Found;
+        }
+        //var r = findTargetChild(v, Name);
+        //if(r!=null) result = r;
+    });
+    return result;
+}
+
+function createDataTable(Data, Columns, targetHTML, Name, dSet, relativeData){
+
+    console.log('dSet ', dSet);
+    console.log('data! = ', Data);
+    console.log('columns! ', Columns);
+    
+
+    var template = $('#pageTemplate').clone();
+    template.css('display', 'flex');
+    $(template).attr('id','Table_'+Name);
+    // var targetHTML = $('#dtTemplateArea');
+    targetHTML.append(template);
+    targetHTML.find('#Table_'+Name).hide();
+    targetHTML.find('#Table_'+Name).find('.dtHeader').text(Name);
+    targetHTML.find('#Table_'+Name).find('.tabPage').css('display', 'flex');
+    targetHTML.find('#Table_'+Name).find('.tabPage').css('flex-direction', 'column');
+    
+    var cData = Columns.map(function(v){
+            //ensure that all data has a prop for every column
+            $.each(Data, function(item, value){
+                if(!value.hasOwnProperty(v)) value[v]='';
+            });
+            return {'mData':v};
+    });
+
+    console.log('cData', cData);
+    var targetTable = targetHTML.find('#Table_'+Name).find('.tabPage').find('table.display');
+
+    //create the Header/Footer
+    var tableHeader = targetTable.find('thead').find('tr');
+    var tableFooter = targetTable.find('tfoot').find('tr');
+    //only need to do 1x b/c it is the header/footer
+    $.each(Columns, function(index, value){
+        tableHeader.append('<th>'+value +'</th>');
+        tableFooter.append('<th>'+value +'</th>');
+    });	
+
+    console.error('mAP LABELS ', Data.map(function(i){return i.Date}));
+    console.error('map data ', Data.map(function(i){return i.Found}));
+    console.error('map data ', Data.map(function(i){return i.Reviewed}));
+
+    //create relation
+    var relArea = targetHTML.find('#Table_'+Name).find('.relation');
+    
+    var chartDATA ={};
+    var lbl;
+    var index = 0;
+    var yearData = {};
+    chartDATA['datasets'] = [];
+    for(const prop in dSet){
+        
+        for(const year in dSet[prop]){
+            if(!chartDATA.hasOwnProperty['labels']){
+                chartDATA['labels'] =dSet[prop][year].map(function(i){return numberToMonth(i.Date.split(' ')[0]);});
+            }
+            var page =prop;
+             if(!yearData.hasOwnProperty(year)) {
+                yearData[year] ={};
+                 yearData[year]['labels'] =dSet[prop][year].map(function(i){return numberToMonth(i.Date.split(' ')[0]);});
+                 yearData[year]['datasets'] =[];
+             }
+             yearData[year]['datasets'].push(  
+                {
+                    'type':'line',
+                    'data': dSet[prop][year].map(function(i){ 
+                        if(i.Found==0) return '';
+                        else return (i.Reviewed * 100 )/i.Found}),
+                    'backgroundColor':['rgb(0,0,0)'],
+                    'borderColor':['rgb(0,0,0, .75)'],
+                    'stack': page,
+                    'label': '%'
+                },{
+                    'type':'bar',
+                    'data': dSet[prop][year].map(function(i){
+                        return i.Reviewed}),
+                    'backgroundColor':['rgb(0,255,0)'],
+                    'stack': page,
+                    'label': 'Reviewed'
+                },{
+                    'type':'bar',
+                    'data': dSet[prop][year].map(function(i){
+                        return i.Found}),
+                    'backgroundColor':['rgb(255,0,0)'],
+                    'stack': page,
+                    'label': 'Found'
+                }
+            );
+        }
+        index++;
+    }
+    console.error('yearData ', yearData);
+    var lastYear = 0;
+    var numYears = 0
+    for(const y in yearData){
+        numYears++;
+      
+        console.log('yearData = ', yearData[y]);
+        lastYear = y;
+        //create the tab
+        //targetHTML.find('#Table_'+Name).find('.canvasNAV').append('<li class="w3-button" onclick="openTab(this);">'+y+'</li>');
+        // /<div type="button"  class="w3-button w3-bar-item" targetHTML='settingsPage' onclick="changeTab('page', 'w3-theme-l1', this);return false;"><i class="fa fa-cogs fa-2x" ></i></div>  
+        targetHTML.find('#Table_'+Name).find('.canvasNAV').append('<div type="button" style="max-width:80px;"  class="w3-button w3-bar-item" targetHTML="Canvas_'+Name+'_year_'+y+'" onclick="changeTab('+"'chartType1',"+ "'w3-theme-l1',"+'this); return false;">'+y+'</div>');
+
+
+        //create the canvas
+        targetHTML.find('#Table_'+Name).find('.canvasArea').append("<canvas id='Canvas_"+Name+"_year_" + y +"' class='chartType1 w3-center'></canvas>");
+        var canvas = targetHTML.find('#Table_'+Name).find('.canvasArea').find('#Canvas_'+Name+'_year_' + y);
+        
+        if(numYears != Object.keys(yearData).length){
+            canvas.hide();
+        }else{
+            //add the correct hteme class
+            targetHTML.find('#Table_'+Name).find('.canvasNAV').children().last().addClass('w3-theme-l1');
+        }
+
+        //create chart
+        var ctx = canvas[0].getContext('2d');
+            
+        var pageChart = new Chart(ctx, {
+            type:'bar',
+            data: yearData[y],
+            options:{
+                plugins:{
+                    legend:{
+                        display:false
+                    }
+                },
+                scales: {
+                    x: {stacked:false},
+                    y: {stacked:false}
+                },
+                interaction: {
+                    mode: 'point'
+                },
+            }
+        });
+    }
+
+     
+
+    if(Object.keys(relativeData).length>0){
+        console.log('relativeData ', relativeData);
+        console.log('relativeData 2 ', Object.keys(relativeData));
+        console.log('relativeData 3 ', Object.values(relativeData));
+        relArea.append('<canvas class="chartType1 relCanvas"></canvas>');
+        var relCTX = relArea.find('.relCanvas')[0].getContext('2d');
+        
+        const data = {
+  labels: Object.keys(relativeData),
+  datasets: [{
+    label: 'My First Dataset',
+    data:  Object.values(relativeData),
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ]
+  }]
+};
+ 
+/*
+            labels: Object.keys(relativeData),
+            data: {
+                datasets:[
+                    {
+                        label:'',
+                        data: Object.values(relativeData)
+*/
+
+        var relChart = new Chart(relCTX, {
+            type:'polarArea',
+            data:data,
+            options:{plugins:{
+                    legend:{
+                        display:true
+                    }
+                }}
+        });
+    }else{
+        relArea.append('<div>Top Level, no Children</div>');
+    }
+     
+    
+
+     //create the actual data table
+    try { 
+            targetHTML.find('#Table_'+Name).find('.tabPage').find('table.display').DataTable({    
+          	    "bAutoWidth": false, //we want to control the width of our columns specifically, if we were ok with a standardard width we could set this to true
+          		"aaData": Data,  //this is the ajax data that we are passing in
+                "aoColumns": cData,
+                initComplete: function () {
+            			this.api().columns().every( function (index) {
+ 
+             			    var column = this;
+             			    var select = $('<select data-placeholder="Filter" size="2" multiple class="chosen-select"><option value=""></option></select>')
+               			    .appendTo( $(column.footer()).empty() )
+               			    .on( 'change', function () {
+                   			    var val = $(this).val()+ "";
+                   			    val =  val.replace(/,/g, '|');
+                   			    column.search( val ? '^'+val+'$' : '', true, false).draw();
+               			    });
+                            
+                            select.attr('colName',$(this.header()).text());
+                               
+                            column.data().unique().sort().each( function ( d, j ) {
+                        	    select.append( '<option value="'+d+'">'+d+'</option>' );      
+                            });
+           				});
+                },
+                createdRow:function(row, d, dIndex){
+                    //add SPID
+                    //$(row).attr('SPID', d.SPID);
+                    //console.log(' d  =', d);
+                }
+            });
+            var allSelect = $('#Table_'+Name).find('.chosen-select');
+	
+    			for(var i = 1; i < allSelect.length-1; i++){
+                    $(allSelect[i]).find('option:first-child').html('All');
+                }
+
+                allSelect.chosen({width:'100%'});
+    }
+    catch(error){ console.log('error ' + error); } 
+}
+
+function simplifiedTitle(long_title){
+        $.each(allSettingsData, function(i,v){
+            $('#matchRow').find('.Path input').each(function(ii,vv){                     
+                if($(vv).val()==v.Path){
+                    //match found, so put the Org in there
+                    return(v.Org);
+                }
+           })
+        });
+        return long_title;
+}
+    
+
+    function SetupTables(data, PIIResults){
+        console.log('setupTables ', data);
+        console.log('setupTables result s', PIIResults);
+        
+        $.each(data, function(i,v){
+            var combined = [];
+            var dataSet = {};
+            var sumSet=0;
+  
+            var leastYear =new Date().getFullYear();
+            var maxYear =0;
+            $.each(v.URLs, function(ii,vv){
+                //combine actual data
+                var target = PIIResults.filter(function(item){return item.Title==vv;});
+                if(target.length>0){
+                    console.log('JSON Parse = ', JSON.parse(target[0].JSON));
+                    dataSet[target[0].Title]=[];
+                    $.each(JSON.parse(target[0].JSON), function(index, value){
+                        var year = value.Date.split(' ')[1];
+                        if(year>maxYear) maxYear = year;
+                        if(year < leastYear) leastYear = year;
+                        console.log('maxYear = ', maxYear);
+                        console.log('least Year ', leastYear);
+                        value['Page']=target[0].Title
+                        if( !dataSet[target[0].Title].hasOwnProperty(year)) dataSet[target[0].Title][year]=[];
+                        dataSet[target[0].Title][year].push(value);
+                        //dataSet[target[0].Title].push(value);
+                        combined.push(value);
+                    });
+                    //add sum
+                     
+                }else console.error('WARNING no target for PII Results found : ', vv);
+
+            });
+            //sumSet['sum']= sumSet['sum']/combined.length;
+            //console.log('sum ', sumSet);
+            if(combined.length>0){
+                combined.sort(function(a,b){
+                   return (a.Date - b.Date)                         
+                });
+                
+                var y = leastYear
+                do{
+                    //fill in months
+                    for(prop in dataSet){
+                        
+                        if(dataSet[prop].hasOwnProperty(y)){
+                            var maxMonth = 12;
+                           if(y==maxYear ){
+                               maxMonth = new Date().getMonth();
+                               maxMonth++;
+                               console.log('max Month = ', maxMonth);
+                            }
+                            var lastMonth = 0;
+                            //fill in any gaps in months
+                            for(var m = 1; m <= maxMonth; m++){
+                                if(dataSet[prop][y].filter(function(v){return v.Date.split(' ')[0]==m}).length==0){
+                                    lastMonth=m;
+                                    dataSet[prop][y].push({'Date':m + ' ' + y, 'Found':0, 'Reviewed':0, 'User':'', 'Page':''});
+                                }
+                            }
+                        }
+                         //sort
+                        dataSet[prop][y].sort(function(a,b){return (a.Date.split(' ')[0] - b.Date.split(' ')[0]);});  
+                    }
+
+                    y++;
+                }while(y <maxYear);
+                
+
+                    //try to incorporate average bacck
+                    //using Name and the actual data
+                    //  tree structure = tData
+                    //  actual data to search through = 
+                    PIIResults.filter(function(vv){return vv.Title == v.Title})
+                    var hasChildren = findTargetChild(tData, v.Title);
+                    var r = 0;
+                    var tt = 0;
+                    var k = {};
+                    var kk = {};
+                    if(hasChildren.children.length>0){
+                        $.each(hasChildren.children, function(item,value){
+                            $.each(value.URLs, function(ii,vv){
+                                var t = PIIResults.filter(function(item){return item.Title==vv});
+                                if(t.length>0){
+                                    var j = JSON.parse(t[0].JSON);
+                                    var avg = (j[j.length-1].Reviewed * 100)/j[j.length-1].Found;
+                                    k[value.Title] = avg;
+                                    r = r + avg;
+                                    tt++;
+                                }
+                            });
+                        });
+
+                        kk[v.Title] = k;
+
+                        console.log('kk! ', kk);
+
+                        if(tt>0){
+                            console.log(v.Title + ' r avg = ' + (r / tt));
+                        }
+
+
+                    }
+                createDataTable(combined, ['Date', 'Page', 'Found', 'Reviewed', 'User'], $('#templateTile'), v.Title, dataSet , k);
+            }else{
+                //grey out nav option
+                $('nav').find('span:contains("'+v.Title+'")').addClass('disabledLink');
+            }
+        });
+
+        //ensure we click on the top level
+        $('#templateTile').find('[id^="Table_"]:first').click();
+    }
+
+    //Checks if lists that are required exists or not
+    //   if not it will attempt to create the list
+    function listCheck(){
+        console.log('Main.html : listCheck(): url ', _spPageContextInfo.webAbsoluteUrl);
+        var allPromises=[];
+        var settingsExist=false;
+        var tabCategory={}; 
+        var twoCat = [];
+        var threeCat =[];
+        var fourCat = [];
+
+
+
+        allPromises.push(SPHGetListItems(list_settings, '?$select=JSON,Id', window.location.origin + masterURL).done(function(data){
+            if(data.length>0) {
+                console.log('data[0] = ', JSON.parse(data[0].JSON));
+                
+                PIIAdminSettingsID= data[0].Id;
+                settingsExist=true;
+                //determine which settings are not assigned
+                //UnAssigned = JSON.parse(data[0].JSON).URLs
+                tData = JSON.parse(data[0].JSON);
+                loadSettings(tData, $('#MasterAccord').closest('.btnHeader'));
+                console.log('all Assigned = ', allAssigned);
+                console.log('tData ', tData);
+                console.log('allData ', allData);
+
+                allPromises.push(SPHGetListItems(list_admin, '?$select=Title,Id,JSON', window.location.origin + masterURL).done(function(adminDATA){
+                    if(adminDATA.length>0){
+                        SetupTables(allData, adminDATA);
+                        setupHome(tData, adminDATA);
+                        createHealthTable(adminDATA.map(function(l){
+                            var j;
+                            console.error('DT !! ', l);
+                            j= JSON.parse(l.JSON);
+                            //figure out Org based on Title / URL
+                            var org = URL2Org(l.Title);
+                            //add to each element
+                            $.each(j, function(i,v){
+                                v['Org'] = org;
+                            });
+                            
+                            return j}), ['Date', 'Org', 'Found', 'Reviewed', 'User']);
+                        var allUnassigned = adminDATA.filter(function(item){
+                             return allAssigned.indexOf(item.Title) ==-1 
+                        })
+
+                        //now fill up the Selects
+                        $.each($('#MasterAccord').find('select'), function(i,v){
+                            $.each(allUnassigned, function(i,vv){
+                                console.log('vv - ', vv);
+                                $(v).append('<option value="'+vv.Title+'">'+vv.Title+'</option>');
+                            });
+                        });
+
+                        console.log('adminData ', adminDATA[0].Id);
+
+                    }else alert('No Data found in the PIIAdmin list!');
+
+                    //make sure first tab is selected
+                    $($('#horzNav').find('.w3-button:visible')[0]).click();
+                }));
+
+            }
+        }).fail(function(e){ 
+            //we try to create the main list here
+            console.log('PIIAdmin Settings List not detected. Attepmting to create it now.'); 
+            allPromises.push(createList(list_settings, window.location.origin + masterURL).done(function(data){
+                allPromises.push(addFieldToList(list_settings, [{'Name':'JSON', 'Type':'Note'}],  window.location.origin + masterURL).done(function(){console.log('created Field');}).fail(function(e){ console.error('Failed creating field! ' + e);}));
+                PIIAdminSettingsID=-1; //indicate that the list didnt exist before
+            }));
+        }));
+
+
+
+
+        $.when.apply($, allPromises).done(function(){
+            console.log('all Promises done');
+            $( "#matchRow" ).sortable({
+                placeholder: "ui-state-highlight"
+            });
+            $( "#matchRow" ).disableSelection();
+            
+        });
+
+    }
+
+    $(document).ready(function(){
+        $("#homeButton").click();
+    });
+
+    
+
+    function setupHome(JSONData, indiv){
+        //console.log('PII Tree', data);
+        //console.log('PII', indiv);
+
+        console.log('tree depth ', JSONData.Level + ' ' + JSONData.Title);
+        HomeTab(JSONData);
+      
+    }
+
+    function URL2Org(URL){
+        if(URLOrg.hasOwnProperty(URL)){
+            return  URLOrg[URL];
+        }else return '';
+    }
+
+    function HomeTab(JSONData){
+        
+        $.each(JSONData.URLs, function(i, v){
+            console.log('HomeTab url v = ', v);
+            if(!URLOrg.hasOwnProperty(v)) URLOrg[v]=JSONData.Title;
+        });
+
+        $.each(JSONData.children, function(i,v){
+            console.log('HomeTab JSON Child data ', v);
+            HomeTab(v);
+        });
+    }
+
+
+    function changeTab2(targetClass, themeClass, e, chart){
+        console.log('e was passed ', e);
+        console.log('targetclass was passed ', targetClass);
+        console.log('themeclass was passed ', themeClass);
+
+        //$.each($("." + targetClass), function(i,v){
+        //    $(v).hide();
+        //});
+
+        console.log('parent ', $(e).closest('.nav'));
+  
+        $.each($(e).closest('.nav').find('.w3-button'), function(ii,vv){
+            console.log('removing %s from %o', themeClass, vv);
+            $(vv).removeClass(themeClass);
+        });
+
+        //$("#"+$(e).attr('targetHTML')).fadeIn('slow');
+        if(chart=='1'){
+            $(e).closest('.tab').find('#dtContainer').hide();
+            $(e).closest('.tab').find('.chartCanvas').show();
+            $(e).closest('.tab').find('.relation').hide();
+        }else if(chart=='0'){
+            $(e).closest('.tab').find('#dtContainer').show();
+            $(e).closest('.tab').find('.chartCanvas').hide();
+            $(e).closest('.tab').find('.relation').hide();
+        }else{
+            $(e).closest('.tab').find('#dtContainer').hide();
+            $(e).closest('.tab').find('.chartCanvas').hide();
+            $(e).closest('.tab').find('.relation').show();
+        }
+        //adjust for if the selection was from the dropdownNav
+        if($(e).hasClass('childTAB')){
+            console.log('childTAB');
+            console.log($(e).closest('.w3-dropdown-hover'));
+            //make sure parent is highlighted
+            $(e).closest('.w3-dropdown-hover').find('.mainTAB').addClass('themeClass');
+        }
+        $(e).addClass(themeClass);
+    }
+
+
+    function changeTab(targetClass, themeClass, e){
+        console.log('e was passed ', e);
+        console.log('targetclass was passed ', targetClass);
+        console.log('themeclass was passed ', themeClass);
+
+        $.each($("." + targetClass), function(i,v){
+            $(v).hide();
+        });
+
+        console.log('parent ', $(e).closest('.nav'));
+  
+        $.each($(e).closest('.nav').find('.w3-button'), function(ii,vv){
+            console.log('removing %s from %o', themeClass, vv);
+            $(vv).removeClass(themeClass);
+        });
+        console.error('target !!!!!!!!! ',  $(e).parent().next().find("#"+$(e).attr('targetHTML')));
+        $(e).parent().next().find("#"+$(e).attr('targetHTML')).fadeIn('slow');
+  
+        //adjust for if the selection was from the dropdownNav
+        if($(e).hasClass('childTAB')){
+            console.log('childTAB');
+            console.log($(e).closest('.w3-dropdown-hover'));
+            //make sure parent is highlighted
+            $(e).closest('.w3-dropdown-hover').find('.mainTAB').addClass('themeClass');
+        }
+        $(e).addClass(themeClass);
+    }
+
+ 
+ 
+function createList(listName, listPath) {
+    console.log('list path = ', listPath);
+    var deferred = $.Deferred();
+    //var clientContext = new SP.ClientContext(siteURL);
+    var clientContext = new SP.ClientContext(listPath);
+    var oWebsite = clientContext.get_web();  
+    var listCreationInfo = new SP.ListCreationInformation();
+
+    listCreationInfo.set_title(listName);
+    listCreationInfo.set_templateType(SP.ListTemplateType.genericList);
+
+    this.oList = oWebsite.get_lists().add(listCreationInfo);
+
+    clientContext.load(oList);
+
+    clientContext.executeQueryAsync(
+        function(){deferred.resolve(listName)},
+        function(sender, args){deferred.reject(sender, args.get_message());}
+    );
+
+    return deferred.promise();
+}
+
+function addFieldToList(listName, fieldData, listPath) {
+    //fieldName, fieldType,
+    var deferred = $.Deferred();
+    var clientContext = new SP.ClientContext(listPath);
+
+    var oList = clientContext.get_web().get_lists().getByTitle(listName);
+    if(fieldData.length >0){
+        $.each(fieldData, function(i,v){
+            console.log('fieldData, ', v);
+            this.oField = oList.get_fields().addFieldAsXml('<Field DisplayName=\''+v.Name+'\' Type=\''+v.Type+'\' />', true, SP.AddFieldOptions.defaultValue);
+            clientContext.load(this.oField);
+        });
+        
+    }
+
+    clientContext.executeQueryAsync(
+        function(){deferred.resolve()},
+        function(e){deferred.reject(e);}
+    );
+    return deferred.promise();
+}
+
+     
+</script>
+
+<script>
+    /** Info
+ * Summary. Displays error info to the console
+ * Description. data from the AJAX call is given and the error info is displayed to the console
+ * @param {ajax} data AJAX return data
+ */
+//Error handler
+function errorFunction(data)
+{
+    console.error('error noted in SPHelper_v4.js');
+    console.error(data);
+    console.error(JSON.stringify(data.responseJSON));
+    console.error(data.responseJSON.error.message.value);
+    console.error(JSON.stringify(data.responseJSON));
+}
+
+
+/*
+Open Modal for SharePoint List Forms (DispForm.aspx, NewForm.aspx etc)
+Note: refreshOnSave is if you want the main page to refresh when user clicks on save of the List Form
+      true=Page Refreshes   false=Page does not Refresh
+*/
+function openSPModal(URL, modalTitle, modalWidth, modalHeight, refreshOnSave) {
+    var options = {
+      url: URL,
+      allowMaximize: false,
+      showClose: true,
+      width: modalWidth,
+      height: modalHeight,
+      title: modalTitle,
+      dialogReturnValueCallback: function dialogReturnValueCallback(dialogResult) {
+        if (dialogResult != SP.UI.DialogResult.cancel) {
+          //When Save is clicked
+          if(refreshOnSave) SP.UI.ModalDialog.RefreshPage(dialogResult); //reload the page
+        }
+      }
+    };
+    SP.UI.ModalDialog.showModalDialog(options);
+}
+    //Helper function to resolve the Item type used when updating list items.
+//   Note:this will fail if listName isnt simple no space no special char like _
+function SPHGetItemType(name) {
+    return "SP.Data." + name.charAt(0).toUpperCase() + name.slice(1) + "ListItem";
+}
+    /** Info
+ * Summary. Gets all items of a SP List
+ * Description. Returns data from the SP List. Also fills SPHListItems with that data.
+ *        Data can be retrieved by user with SPHReturnItems()
+ * @param {string} ListName The name of the SP List that is targeted
+ * @param {string} additionalParameters Additional text for the Ajax call after /items 
+ *                 will likely begin with ?$select etc or can be an empty string for returning allItems
+ * @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:  
+ * var allListItems = SPHGetListItems('ListName', '', 'siteUrl');  
+ *     for advanced pulling from the list if desired but not necessary
+ * allListItems.done(function(data){
+ *      console.log(data.d.results);
+ * }).fail(function(e){ alert('Failed Getting List Items! ' + e.responseText);});
+ */
+function SPHGetListItems(ListName, additionalParameters, siteUrl)
+{ 
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var fullUrl = siteUrl + "/_api/web/lists/GetByTitle('" + ListName + "')/items" + additionalParameters;
+    var deferred=$.Deferred();
+    var nonext = false;
+    var results = [];
+    getItems();
+
+    function getItems(){ 
+        $.ajax({
+            url: fullUrl,
+            type: "GET",
+            headers: {
+                "accept": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+            },
+            success: function(data){
+                results = results.concat(data.d.results);
+                //this allows us to get over the SP item limit of 100 items returned
+                if (data.d.__next) {
+                    fullUrl = data.d.__next;
+                    getItems();
+                }else{
+                    deferred.resolve(results);
+                }
+            },
+            error: function(data){
+                errorFunction(data);
+                deferred.reject(data);
+            },
+            complete: function(data){
+            }
+        });
+    }
+    return deferred;
+}
+
+//https://sharepoint.stackexchange.com/questions/105380/adding-new-list-item-using-rest
+
+/** Info
+ * Summary. Grabs an item from a SP List if the id is found
+ * Description. Uses specifically crafted AJAX call to return an item
+ *        (to SPHListItems) if the id is found
+ * @param {string} ListName : Name of SP List
+ * @param {int} id : ID of the item that will be updated
+ * @param {object} itemProperties : object of Column/Field name and its value
+ *    ex  itemProperties["Title"] = "Title of this item"
+ *        itemProperties["Status"] = "Done"  ...etc
+ * @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * @param {string} contentType: Unless you need to set to something special you should use the helper function
+ *                              SPHGetItemType("name of list") to pass the result to this function as
+ *                              it will easily give you the contentType for a given list
+ * Use:
+ * //specify item properties
+ *   var itemProperties = {};
+ *   itemProperties["Name of Property"] = value of property
+ *     ie: itemProperties["Title"] = "itemTitle"
+ *         itemProperties["Status"] = "Complete"
+ * var updItem = SPHCreateListItem('ListName', itemProperties, 'siteURL', SPHGetItemType('ListName'));
+ * 
+ * updItem.done(function(data){
+ *      //success
+ * }).fail(function(e){ alert('Failed creating List Item! ' + e.responseText);});
+ *     
+ * //https://sharepoint.stackexchange.com/questions/105380/adding-new-list-item-using-rest
+**/
+function SPHCreateListItem(listName, itemProperties, siteURL, contentType) {
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    itemProperties["__metadata"] = { "type": contentType };
+    var deferred=$.Deferred(); 
+    $.ajax({
+        url: siteURL + "/_api/web/lists/getbytitle('" + listName + "')/items",
+        type: "POST",
+        contentType: "application/json;odata=verbose",
+        data: JSON.stringify(itemProperties),
+        headers: {
+            "Accept": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+        },
+        success: function (data) {
+            deferred.resolve(data);
+        },
+        error: function (data) {
+            errorFunction(data);
+            deferred.reject(data);
+        }
+    });
+
+    return deferred;
+}
+/** Info
+ * Summary. Grabs an item from a SP List if the id is found
+ * Description. Uses specifically crafted AJAX call to return an item
+ *        (to SPHListItems) if the id is found
+ * @param {string} ListName : Name of SP List
+ * @param {int} id : ID of the item that will be updated
+ * @param {object} itemProperties : object of Column/Field name and its value
+ *    ex  itemProperties["Title"] = "Title of this item"
+ *        itemProperties["Status"] = "Done"  ...etc
+ *  @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * @param {string} contentType: Unless you need to set to something special you should use the helper function
+ *                              SPHGetItemType("name of list") to pass the result to this function as
+ *                              it will easily give you the contentType for a given list
+ * Use:
+ * var updItem = SPHUpdateItemByID('ListName', 'string id to update', itemProperties, 'siteUrl', SPHGetItemType('ListName'));
+ * 
+ * updItem.done(function(data){
+ *       //success!!!
+ * }).fail(function(e){ alert('Failed Updating Item by ID! ' + e.responseText);});
+ * 
+ *   see below for how to structure itemProperties
+ * //https://sharepoint.stackexchange.com/questions/105380/adding-new-list-item-using-rest
+/*
+//specify item properties
+var itemProperties = {'Title':'Order task','Description': 'New task'};
+*/
+function SPHUpdateItemByID(ListTitle, id, itemProperties, siteURL, contentType)
+{  
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var siteUrl = siteURL;
+    var fullUrl = siteUrl +"/_api/web/lists/GetByTitle('"+ListTitle+"')/items(" + id.toString() + ")";
+    var deferred=$.Deferred(); 
+    var itemPayload = {
+        '__metadata': {'type': contentType}
+    };
+
+    for(var prop in itemProperties){
+        itemPayload[prop] = itemProperties[prop];
+    }
+    
+    console.log(JSON.stringify(itemPayload));
+    $.ajax({
+        url: fullUrl,
+        type: "POST",
+        data: JSON.stringify(itemPayload),  
+        headers: {
+            "Accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+            "X-RequestDigest" : $("#__REQUESTDIGEST").val(),
+            "X-HTTP-Method": "MERGE",
+            "If-Match": "*"
+        },
+        success: function(data){
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+</script><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Office msdt:dt="string"></mso:Office>
+<mso:Is_x0020_this_x0020_information_x002f_data_x0020_sensitive_x003f_ msdt:dt="string">No</mso:Is_x0020_this_x0020_information_x002f_data_x0020_sensitive_x003f_>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head>

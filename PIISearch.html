@@ -1,0 +1,1493 @@
+<!--Local scripts-->
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+<script lang="javascript" src="\sites\20127\grps\sc\quality_assurance\SiteAssets\Scripts\jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="\sites\20127\grps\sc\quality_assurance\SiteAssets\Scripts\jquery.dataTables.min.css">
+<script lang="javascript" src="\sites\20127\grps\sc\quality_assurance\SiteAssets\Scripts\jquery.modal.min.js"></script>
+<link rel="stylesheet" href="\sites\20127\grps\sc\quality_assurance\SiteAssets\Scripts\jquery.modal.min.css">
+<script lang="javascript" src="\sites\20127\grps\sc\quality_assurance\SiteAssets\Scripts\chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="\sites\20127\grps\sc\quality_assurance\SiteAssets\Scripts\chosen.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" /-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+<script lang="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.js" integrity="sha512-ztxZscxb55lKL+xmWGZEbBHekIzy+1qYKHGZTWZYH1GUwxy0hiA18lW6ORIMj4DHRgvmP/qGcvqwEyFFV7OYVQ==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.css" integrity="sha512-JP49dvydjvdq6qd31grbdqIeExUyLFFIIneoetY/cJ+eQeJ6ok5HhaM4kQfIeQV4maAMGQ5kf4In3T7VKwMufg==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" integrity="sha512-0nkKORjFgcyxv3HbE4rzFUlENUMNqic/EzDIeYCgsKa/nwqr2B91Vu/tNAu4Q0cBuG4Xe/D1f/freEci/7GDRA==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+<!--Modal popup when the PII Search button is pressed-->
+<div id='resultsModal' class='modal'>
+    <div id='resultsContainer'>
+        <!--This is the animated loading CSS-->
+        <div id="cover-spin"></div>
+        <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+        <div class='headerText'>PII Search Results</div>
+        <div><!--Book icon which will let the user gain access to the Search terms list-->
+            <i class="fa fa-book fa-2x w3-right" onclick="openSearchTerms();" aria-hidden="true" style="margin-top:6px; margin-right:6px;"></i>
+        </div>
+        <div id='innerContent'>
+            <div class='w3-card-4 innerStyle' style="overflow:inherit;">
+                <div id="dtTemplateArea" class="w3-container" style="transform:translateY(-30px);"> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Template page where the DataTable will live-->
+<div id="pageTemplate" class="tab" style="display:none;">
+    <div class="tabPage">
+        <br>
+        <!-- Data TABLE Area -->
+        <div class="block" id="dtContainer">    
+            <table class="display" style="width:100%;">    
+                <thead>
+                    <tr></tr>          
+                </thead>    
+                <tfoot>
+                    <tr></tr>    
+                </tfoot>    
+            </table>    
+        </div>
+        <br> <!-- Save button which will save that the logged-in user did a PII Search/Review and saves which ones were Reviewed-->
+        <div class="w3-display-bottomright" style="margin-bottom:6px; margin-right:4px;"><input id="saveBtn" type="button" value="Save Results" onclick="saveResults();return false;"><span class='updateDate'></span>
+        </div>
+        <br>
+    </div>
+</div>
+<style>
+    #s4-ribbonrow{
+        z-index:0 !important;
+    }
+    .toggleData{
+        display:none;
+    }
+    .highlightRow{
+        background: yellow !important;
+    }
+    /*Loading Animation */
+    .sk-folding-cube {
+        margin: 20px auto;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        z-index:99999;
+        left:48%;
+        top:40%;
+        -webkit-transform: rotateZ(45deg);
+        transform: rotateZ(45deg);
+    }
+.iconHover{
+   width:100px;
+   height:100px;
+}
+.fa-book:hover{
+    color:yellow;
+    cursor:pointer;
+}
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1); 
+}
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+          animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+          transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+          transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+          transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+          transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s; 
+}
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  } 
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  }
+}
+/*End Loading Animation*/
+#cover-spin {
+    position: absolute;
+    width:100%;
+    left:0;right:0;top:0;bottom:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+    display:none;
+}
+
+.display th:nth-child(1){
+    width:10%;
+}
+.display th:nth-child(2){
+    width:15%;
+}
+.display th:nth-child(3){
+    width:25%;
+}
+.display td:nth-child(3){
+    cursor:pointer;
+}
+.display th:nth-child(4){
+    width:10%;
+}
+.display th:nth-child(5){
+    width:10%;
+}
+.display th:nth-child(6){
+    width:10%;
+}
+.display th:nth-child(7){
+    width:10%;
+}
+.display th:nth-child(8){
+    width:5%;
+}
+    .display tbody > tr > td{
+        white-space:nowrap;
+        overflow:hidden;
+    }
+
+    .display tr{
+        height: 10px;
+        min-height:10px;
+        max-height:10px; 
+    }
+    
+    .display{
+        font-size:12px;
+        table-layout: fixed;
+    }
+    .noPII{
+        color:lightgrey;
+    }
+    #saveBtn{
+        margin-right:10px;
+        transform:translateY(15px);
+        color: white;
+        font-weight: bold;
+        background: #15273b;
+	    padding: 7px;
+        border-radius: 30px;
+        font-size:small;
+        padding-left:10px;
+        padding-right:10px;
+        cursor:pointer;
+    }
+    #saveBtn:hover{
+        border: 2px solid #52cf71;
+        color:#52cf71;
+        border-radius:30px;
+        z-index:9;
+    }
+    .dataTables_wrapper{
+        margin-top:20px!important;
+        font-size:10px;
+    }
+#resultsModal{
+    background-color: gainsboro;
+    min-height:400px;
+    min-width:90%;
+}
+#innerContent
+{
+    padding-top:4%;
+}
+.innerStyle{
+    background-color:#F5F5F5;
+    margin-bottom:10px;
+}
+.modalSettings{
+    position:absolute;
+    top:25%;
+    left:25%;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items:center;
+}
+#DataTables_Table_0 {
+    text-overflow: ellipsis;
+}
+
+#DataTables_Table_0 td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+} 
+.switch-wrap {
+     margin:auto;
+	 cursor: pointer;
+	 background: #15273b;
+	 padding: 2px;
+     border-radius: 33.5px;
+     display:flex;
+     flex-direction: column;
+     width: 30px;
+     height:12px;
+}
+ .switch-wrap input {
+	 position: absolute;
+	 opacity: 0;
+	 width: 0;
+	 height: 0;
+}
+ .switch {
+	 height: 100%;
+	 display: grid;
+	 grid-template-columns: 0fr 1fr 1fr;
+	 transition: 0.2s;
+}
+ .switch::after {
+	 content: '';
+	 border-radius: 50%;
+	 background: #ccc;
+	 grid-column: 2;
+	 transition: background 0.2s;
+}
+ input:checked + .switch {
+	 grid-template-columns: 1fr 1fr 0fr;
+}
+ input:checked + .switch::after {
+     background-color: #52cf71;
+}
+
+.headerText{
+    text-align:center;
+    font-size: x-large;
+}
+
+.modal a.close-modal{
+    top:4px;
+    right:4px;
+}
+
+a.close-modal:hover{
+    border: 2px solid red;
+    border-radius:55%;
+}
+.ms-dlgTitleBtns{
+    margin-right:0px;
+    color:red;
+}
+
+.ms-dlgTitle{
+    background-color:silver;
+    color:white;
+}
+.clickable{
+    cursor:pointer;
+}
+</style>
+
+<script>
+var $j = jQuery.noConflict(); //In case JQuery is already used on the page, create a noConflict version for this script's use (so j$ = $)
+
+var masterURL='/sites/20127/grps/sc'; ///This is the relative master location you want the search terms List and the Admin List to exist at (not https:// but /sites/etc....)
+var list_SearchTerms='PIISearchTerms' //Name of the List that contains the Search Terms
+var list_admin='PIIAdmin' //Name of the List that these PII Search WebParts report completion(s) to
+//Search can pull a lot of fields. We only care about the ones in the array below (this also creates the headers for our DataTable)
+//     you can modify/add to the fields, if you know the correct field name you want, but you must leave No PII alone as that is used by this script 
+var targetFields = ['Title', 'Author', 'Path', 'Description', 'ViewsLifeTime', 'ViewsRecent', 'FileType','No PII'];
+var siteURL = _spPageContextInfo.webAbsoluteUrl; //Stores the URL of the site where this webPart is at
+var searchWords =[]; //will store all words from PII Search Terms
+var dTable=null;
+var PIIResultsExists=false;
+var targetID=0;
+var finalData; //the PII Results data
+var userData; //stores data on the logged in user
+var originalSearchTerms = ['ssn', 'alpha', 'roster'];
+
+//as we want to check if lists exist or not, we need to not check until sp.js is loaded
+ExecuteOrDelayUntilScriptLoaded(init, "sp.js");
+
+// Initial entry point
+function init(){
+    console.log("PIISearch.html : init()");
+    $j('#beginSearch').prop('disabled', false); //we begin with this button disabled. so once we reach this point, we can enable the button
+    $j('#beginSearch').on('click', function(){  //on click we call the preCheck function
+        preCheck();
+    });
+}
+
+// Load Search Topics
+function loadSearchTerms(data){
+    //get search terms from each item returned (as Title) and store it into our searchWords array
+    $j.each(data, function(i,v){
+        searchWords.push(v.Title);
+    });
+
+    console.log('PIISearch.html: loadSearchTerms(): Pulled the following search words from the list: ', searchWords);
+    console.log('PIISearch.html: loadSearchTerms(): The location to search will be: ', siteURL);
+}
+
+//checks for the existance of lists, and if they dont exists creates them
+//      additionally if all lists exist/are setup then the Query is called
+function preCheck(){
+    console.log("PIISearch.html : preCheck()");
+    var listsCreated = false; //we will check if lists exists or not, if they dont we create them then set this to true
+    var allPromises=[]; //holds all our promises
+    var searchTermPromises=[];
+
+    //1. Attempt to get user info
+    allPromises.push(SPHGetUser(_spPageContextInfo.userId.toString()).done(function(data){
+        userData =data.d.results[0]; //store info about the logged in user
+        console.log('PIISearch.html : preCheck(): determined that the logged in user is ',userData.Title);
+    }).fail(function(e){ alert('PIISearch.html : preCheck(): Failed Getting User! ' + e.responseText);}));
+
+    //Check if the main setup location is blank, if so we notify the user and do nothing else
+    if(masterURL==''){
+        alert('WARNING the masterURL variable in the PIISearch.html script is not correctly set. Please ensure it matches the URL of where you want the Search Terms and PII Admin lists to live.');
+    }else{
+        //Try to get data from our SearchTerms list
+        //    if the list does not exist this will fail and we will create the list for the user automatically
+        allPromises.push(SPHGetListItems(list_SearchTerms, '?$select=Title', window.location.origin + masterURL).done(function(data){
+            console.log('PIISearch.html : preCheck(): Got list items from the SearchTerms List: ', data);
+            //load up the Search Terms
+            loadSearchTerms(data);
+        }).fail(function(e){ 
+            listsCreated= true;
+            console.log('PIISearch.html : preCheck(): Failed to find the SearchTerms list!');
+            console.log('PIISearch.html : preCheck(): attempting to create the SearchTerms List at: ', window.location.hostname +  masterURL); 
+            allPromises.push(createList(list_SearchTerms, 'https://'  + window.location.hostname +  masterURL).done(function(data){
+                allPromises.push(addFieldToList(list_SearchTerms, [], 'https://'  + window.location.hostname +  masterURL).done(function(){console.log('created Field');
+                    
+                        //Insert originalSearchTerms into list //                            i['__metadata'] = {"type":"SP.Data.PIISearchTerms"};
+                        originalSearchTerms = originalSearchTerms.map(function(item){
+                            var i = {};
+                            i['Title'] = item;
+                            return i;
+                        });
+
+                        console.log('PIISearch.html : preCheck(): originalSearchTerms ', originalSearchTerms);
+                        
+                        $j.each(originalSearchTerms, function(i,v){
+                            allPromises.push(SPHCreateListItem(list_SearchTerms, v, 'https://'  + window.location.hostname +  masterURL,  SPHGetItemType(list_SearchTerms)).done(function(d){
+                                console.log('PIISearch.html : preCheck(): SearchTerms Item Created');
+                            }).fail(function(e){ console.error('Failed creating PIISearchTerms!' + e);}));
+                        });           
+                        //allPromises.push(SPHGetListItems(list_SearchTerms, '?$select=Title', window.location.origin + masterURL).done(function(data){
+                        //Load the search terms as we are using the default/original terms
+                        loadSearchTerms(originalSearchTerms);
+                        //}).fail(function(e){ console.error('Failed creating PII Search Terms! ' + e);}));    
+                }));
+
+            }));
+        }));
+
+        //We now attempt to get data from the Admin List - this is just to check if it exists, we dont do anything with the data
+        //  we arent actually doing anything with this call, just seeing if it exists, if it doesnt in the fail we create the list
+        allPromises.push(SPHGetListItems(list_admin, '?$select=JSON', window.location.origin + masterURL).done(function(data){
+        }).fail(function(e){ 
+            listsCreated=true;
+            console.log('PIISearch.html: preCheck(): Failed to find the Admin list!');
+            console.log('PIISearch.html: preCheck(): attempting to create the admin List', window.location.hostname +  masterURL); 
+            allPromises.push(createList(list_admin, 'https://'  + window.location.hostname +  masterURL).done(function(data){
+                allPromises.push(addFieldToList(list_admin, [{'Name':'JSON', 'Type':'Note'}], 'https://'  + window.location.hostname +  masterURL).done(function(){console.log('created Field');
+                }).fail(function(e){ console.error('Failed creating field! ' + e);}));
+            }));
+
+        }));
+
+        //We use a different method here to check if lists exists or not, and if they dont then create them
+        allPromises.push(get_isListExists('PIIResults').done(function(lists){
+        var listExists = false;  
+        var le = lists.getEnumerator();
+        var lResolve = [];
+        var allLists = [];
+        while (le.moveNext()) {
+            allLists.push(le.get_current().get_title());
+        }
+
+        var toDo = [];
+        $j.each(['PIIResults'], function(i,v){
+            if(allLists.indexOf(v)!=-1){
+                //true
+                lResolve.push({'Name':v, 'Exists':true});
+            }else{
+                //we need to create the list
+                lResolve.push({'Name':v, 'Exists':false});
+                toDo.push(v); //push the name
+            }
+        });
+
+        if(toDo.length>0)
+        { //otherwise we need to create the list
+            console.log('preCheck(): determined that the list PIIResults does NOT exist');
+            $j.each(toDo, function(i,v){
+                console.log('preCheck(): attempting to create the list: ', v);
+                createList(v, siteURL).done(function(data){
+                    console.log(v + ' list created.');
+                    addFieldToList(v, [{'Name':'JSON', 'Type':'Note'}], siteURL).done(
+                    function(){console.log('preCheck(): created Field(s) for the list');
+                    }).fail(function(e){ console.error('Failed creating field! ' + e);});
+                });
+            });
+        }else{
+            //list exists!
+            console.log('preCheck(): determined that the list PIIResults exists');
+        }
+    }));
+    if(listsCreated){
+        console.error('ALL promises did not return, so re-trying the function!');
+        //we need to call this function again
+        preCheck();
+    }
+
+    //once all promises are done, the below runs
+    $j.when.apply($j, allPromises).done(function(){
+        console.log('PIISearch.html: preCheck(): all Promises are done!');
+        //searchWords.length>0
+        //if(true){   //we only want to search if we have search words  
+            console.log('begin search');
+            var PIIQuery = Query(siteURL, searchWords.join(' OR '));
+
+            PIIQuery.done(function(data){
+                console.log('data = ', data);
+
+                SPHGetListItems('PIIResults', '?$select=Id,JSON', _spPageContextInfo.webAbsoluteUrl).done(function(resultData){
+                    console.log('resultData = ',resultData);
+                    if(resultData!=''){ 
+                        targetID = resultData[0].Id; //we are only targeting the first line!
+                        PIIResultsExists=true;
+                        var obj = (JSON.parse(resultData[0].JSON));
+                        console.log('obj = ', obj);
+                        //compare
+                        $j.each(obj.Data, function(i,v){
+                            var isMatch = false;
+                            $j.each(data, function(ii,vv){
+                                if(v.Path==vv.Path){
+                                    isMatch=true;
+                                    console.log('MATCH Detected! %o %o', v, vv);
+                                    if(v['No PII']==0) vv['No PII'] ='0';
+                                    else vv['No PII'] ='1';
+                                }
+                            });
+                            if(!isMatch) v['No PII'] ='0';
+                        });
+                    } else PIIResultsExists=false;
+                    console.log('updated data = ', data);
+                    if (dTable==null) createDataTable(data, targetFields);
+                    else {
+                        
+                        dTable.rows()
+                        .invalidate()
+                        .draw();
+
+                        $j('.sk-folding-cube').hide('slow');
+                        $j('#cover-spin').hide('slow');  
+                    }
+                });
+            });
+            $j('.sk-folding-cube').show('slow');
+            $j('#cover-spin').show('slow');  
+        //}
+    
+        //open modal
+        $j('#resultsModal').modal({
+            escapeClose:false,
+            clickClose:false,
+            showClose:true,
+            closeExisting: false
+        });
+    });
+  }
+}
+
+//opens modal for SearchTerms list
+function openSearchTerms(){
+    openSPModal(window.location.origin + masterURL +'/Lists/PIISearchTerms/AllItems.aspx', 'Search Terms', 800, 600, true) ;
+}
+ 
+//Saves search results to list
+function saveResults(){
+    var allPromises = [];
+    var tID = null;
+    $j('.sk-folding-cube').show(100);
+    $j('#cover-spin').show(100);  
+
+    // Determine the Scope
+    //    This is used as a unique ID
+    var p =  decodeURIComponent(window.location.pathname);//.split('/');
+    console.log('saveResults(): Looking in PIIAdmin List for if a List Item Title = ', p);
+    SPHGetListItems(list_admin, '?$select=Title,Id,JSON' + "&$filter=Title eq '"+ p +"'", window.location.origin + masterURL).done(function(adminDATA){
+        console.log('saveResults(): Result = ', adminDATA[0]);
+        if(adminDATA.length>0) tID = adminDATA[0]; //capture the ID of the List Item that we are targeting
+
+        //This part takes care of saving the PII Results
+        if(!PIIResultsExists){
+            allPromises.push(SPHCreateListItem('PIIResults', {'JSON':JSON.stringify({'Data':finalData.map(function(item){return {'Path':item['Path'], 'No PII':item['No PII']};})})},
+             _spPageContextInfo.webAbsoluteUrl, SPHGetItemType('PIIResults')).done(function(data){  
+            }).fail(function(e){ alert('Failed creating List Item! ' + e.responseText);}));   
+        }else{
+            console.log('update by ID = ', targetID);
+            allPromises.push(SPHUpdateItemByID('PIIResults', targetID, {'JSON':JSON.stringify({'Data':finalData.map(function(item){return {'Path':item['Path'], 'No PII':item['No PII']};})})}, 
+            _spPageContextInfo.webAbsoluteUrl, SPHGetItemType('PIIResults')).done(function(data){
+            }).fail(function(e){ alert('Failed creating List Item! ' + e.responseText);}));   
+        }
+        var dMonth = new Date().getMonth() + 1; //0 is jan, so we add 1 for 1 - 12
+        var dYear = new Date().getFullYear();
+
+    //This saves the data to the Admin site (that the search was done and on what month/year)
+    if(tID!=null){ //If we already have a record of this site we want to continue using that List Item
+        console.log('tID = ', tID);
+        console.log('JSON = ', tID.JSON);
+        var JSONobj = JSON.parse(tID.JSON);
+        console.log('saveResults(): We already have a record of this site, so we will attempt to add/update to that record', JSONobj);
+        //determine if this date already exists?
+        var dateExists = JSONobj.filter(function(i){  if(typeof(i.Date)!='undefined') return i.Date.split(' ')[0] == dMonth && i.Date.split(' ')[1] == dYear;});
+
+        if(dateExists.length>0){
+            console.log('dateEXISTS!');
+            console.log('saveResults(): Determined that a record exists for this date so we are simply updating its statistics');
+            //update existing
+            for(var i =0; i < JSONobj.length; i++){
+                if(JSONobj[i] == dateExists[0]){
+                    console.log('updating Reviewed', finalData.filter(function(i){return i['No PII']=='1';}).length);
+                    JSONobj[i].Reviewed = finalData.filter(function(i){return i['No PII']=='1';}).length;
+                    JSONobj[i].Found = finalData.length;
+                }
+            }
+            console.error('JSONOBJ = ', JSONobj);
+            allPromises.push(SPHUpdateItemByID(list_admin, tID.Id, {'JSON':JSON.stringify(JSONobj)}, window.location.origin + masterURL, SPHGetItemType(list_admin)).done(function(data){}).fail(function(e){ alert('Failed updating List Item! ' + e.responseText);}))
+        }else {
+            console.log('saveResults(): Determined that a record DOES NOT exist for this date so we are creating a new entry for this record');
+            JSONobj.push({'User':userData.Title,'Date':dMonth + ' ' + dYear, 'Reviewed':finalData.filter(function(i){return i['No PII']=='1';}).length, 'Found':finalData.length });
+            console.error('JSONOBJ = ', JSONobj);
+            allPromises.push(SPHUpdateItemByID(list_admin, tID.Id, {'JSON':JSON.stringify(JSONobj)}, window.location.origin + masterURL, SPHGetItemType(list_admin)).done(function(data){}).fail(function(e){ alert('Failed updating List Item! ' + e.responseText);}))
+        }
+    }else{ //otherwise we create a new record
+        console.log('saveResults(): Did not find a record of this site, so creating a new entry for it');
+        //create new
+        allPromises.push(SPHCreateListItem(list_admin, {'Title':p,'JSON':JSON.stringify([{'User':userData.Title, 'Date':dMonth + ' ' + dYear, 'Found':finalData.length ,'Reviewed':finalData.filter(function(i){return i['No PII']=='1';}).length}])}, window.location.origin + masterURL, SPHGetItemType(list_admin)).done(function(data){}).fail(function(e){ alert('Failed creating List Item! ' + e.responseText);}))
+    }
+    
+    $j.when.apply($j, allPromises).done(function(){
+        location.reload();
+    });
+
+    }).fail(function(e){ alert('Failed getting the Admin List Data! ' + e.responseText);});   
+}
+
+function createDataTable(Data, Columns){
+    //allow for PII Toggle button
+    $j.each(Data, function(i,v){
+        v['SPID'] = i;
+    });
+
+    var template = $j('#pageTemplate').clone();
+    template.css('display', 'flex');
+    var targetHTML = $j('#dtTemplateArea');
+    targetHTML.append(template);
+    targetHTML.find('.tabPage').css('display', 'flex');
+    targetHTML.find('.tabPage').css('flex-direction', 'column');
+    
+    var cData = Columns.map(function(v){
+            //ensure that all data has a prop for every column
+            $j.each(Data, function(item, value){
+                if(!value.hasOwnProperty(v)) value[v]='';
+            });
+            if(v=='No PII'){
+                return {'mData':v, 
+                    'render':function(data,type){
+                        return '<span class="toggleData">'+data+'</span><label class="switch-wrap">'+
+                        '<input type="checkbox" onclick="piiToggle(this)"/>'+
+                        '<div class="switch"></div>'+
+                        '</label>';}};
+            }else return {'mData':v, 
+            'render':function(data,type){
+                if(v=='Title'){
+                    return '<div class="clickable" dField="'+v+'" title="'+data+'">' + data  +'</div>';
+                }else return '<div dField="'+v+'" title="'+data+'">' + data  +'</div>';
+            }};
+    });
+    finalData= Data;
+    console.log('cData', cData);
+    var targetTable = targetHTML.find('.tabPage').find('table.display');
+
+    //create the Header/Footer
+    var tableHeader = targetTable.find('thead').find('tr');
+    var tableFooter = targetTable.find('tfoot').find('tr');
+    //only need to do 1x b/c it is the header/footer
+    $j.each(Columns, function(index, value){
+        if(value=='No PII') value='Reviewed';
+        tableHeader.append('<th>'+value +'</th>');
+        tableFooter.append('<th>'+value +'</th>');
+    });	
+
+     //create the actual data table
+    try { 
+            dTable = targetHTML.find('.tabPage').find('table.display').DataTable({    
+          	    "bAutoWidth": false, //we want to control the width of our columns specifically, if we were ok with a standardard width we could set this to true
+          		"aaData": Data,  //this is the ajax data that we are passing in
+                "aoColumns": cData,
+                initComplete: function () {
+            			if(typeof checkIsAdmin =='function'){
+                    		//console.log('admin detected');
+                    		$j('.adminOnly').show();
+            			}else{
+                			//not an admin so do nothing
+            			}
+            
+            			this.api().columns().every( function (index) {
+ 
+             			    var column = this;
+             			    var select = $j('<select data-placeholder="Filter" size="2" multiple class="chosen-select"><option value=""></option></select>')
+               			    .appendTo( $j(column.footer()).empty() )
+               			    .on( 'change', function () {
+                   			    var val = $j(this).val()+ "";
+                   			    val =  val.replace(/,/g, '|');
+                   			    column.search( val ? '^'+val+'$' : '', true, false).draw();
+               			    });
+                            
+                            select.attr('colName',$j(this.header()).text());
+                               
+                            column.data().unique().sort().each( function ( d, j ) {
+                        	    select.append( '<option value="'+d+'">'+d+'</option>' );      
+                            });
+           				});
+                },
+                createdRow:function(row, d, dIndex){
+                    //add SPID
+                    $j(row).attr('SPID', d.SPID);
+                    console.log(' d  =', d);
+                    if(d['No PII']=='1'){
+                        $j(row).addClass('noPII');
+                        console.log('no pii true detected');
+                        console.log($j(row).find('input[type="checkbox"]'));
+                        $j(row).find('input[type="checkbox"]').attr('checked', 'checked');
+                    }
+                }
+            });
+            var allSelect = $j('.chosen-select');
+	
+    			for(var i = 1; i < allSelect.length-1; i++){
+                    $j(allSelect[i]).find('option:first-child').html('All');
+                }
+
+                allSelect.chosen({width:'100%'});
+                setTimeout(function(){
+                    $j('.sk-folding-cube').hide('slow');
+                    $j('#cover-spin').hide('slow');  
+                },500);
+
+                $j('.display tbody td').on("click", function(){
+                    var targetPath =  $j(this).find('div[dField="Path"]');
+                    var targetOpen = $j(this).find('div[dField="Title"]');
+                    if(targetPath.length >0) {
+
+                        var targetURL = $j(targetPath[0]).attr('title');
+
+                        var targetP = targetURL.substring(0, targetURL.lastIndexOf('/'));
+                        console.log('targetP = ', targetP);
+
+                        window.open(targetP, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+                        //remove from all others
+                        $j('.display tr').each(function(){
+                            $j(this).removeClass('highlightRow');
+                        });
+                        
+                        //now highlight this row in yellow
+                        $j(this).closest('tr').addClass('highlightRow');
+                    }else if(targetOpen.length>0){
+                        var targetURL = $j(this).closest('tr').find('div[dField="Path"]').attr('title');
+                        window.open(targetURL, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+                        //remove from all others
+                        $j('.display tr').each(function(){
+                            $j(this).removeClass('highlightRow');
+                        });
+                        
+                        //now highlight this row in yellow
+                        $j(this).closest('tr').addClass('highlightRow');
+                    }
+                });
+                }
+        catch(error){ console.log('error ' + error); }
+}
+
+function piiToggle(e){
+    //save results to the underlying data
+    var fData = finalData.filter(function(item){return item.SPID==$j(e).closest('tr').attr('SPID');});
+    console.log('finalData ', finalData);
+    if(fData.length>0){   
+        var r=false;
+        if($j(e)[0].checked)r='1';
+        else r='0';
+        fData[0]['No PII']= r;
+        console.log('changed finalData to ', fData[0]['No PII']);
+    }
+
+    if($j(e)[0].checked){
+        $j(e).closest('tr').addClass('noPII');
+    }else $j(e).closest('tr').removeClass('noPII');
+    
+}
+
+function get_isListExists(listTitle){
+    var deferred = $j.Deferred();
+    var ctx = SP.ClientContext.get_current();
+    var web = ctx.get_web();
+    var lists = web.get_lists();
+    ctx.load(lists); 
+
+    ctx.executeQueryAsync(
+        function(){deferred.resolve(lists)},
+        function(sender, args){deferred.reject(sender, args.get_message());}
+    );
+    return deferred.promise();
+}
+
+function createList(listName, listPath) {
+    console.log('list path = ', listPath);
+    var deferred = $j.Deferred();
+    //var clientContext = new SP.ClientContext(siteURL);
+    var clientContext = new SP.ClientContext(listPath);
+    var oWebsite = clientContext.get_web();  
+    var listCreationInfo = new SP.ListCreationInformation();
+
+    listCreationInfo.set_title(listName);
+    listCreationInfo.set_templateType(SP.ListTemplateType.genericList);
+
+    this.oList = oWebsite.get_lists().add(listCreationInfo);
+
+    clientContext.load(oList);
+
+    clientContext.executeQueryAsync(
+        function(){deferred.resolve(listName)},
+        function(sender, args){deferred.reject(sender, args.get_message());}
+    );
+
+    return deferred.promise();
+}
+
+function addFieldToList(listName, fieldData, listPath) {
+    //fieldName, fieldType,
+    var deferred = $j.Deferred();
+    var clientContext = new SP.ClientContext(listPath);
+
+    var oList = clientContext.get_web().get_lists().getByTitle(listName);
+    if(fieldData.length >0){
+        $j.each(fieldData, function(i,v){
+            console.log('fieldData, ', v);
+            this.oField = oList.get_fields().addFieldAsXml('<Field DisplayName=\''+v.Name+'\' Type=\''+v.Type+'\' />', true, SP.AddFieldOptions.defaultValue);
+            clientContext.load(this.oField);
+        });
+        
+    }
+
+    clientContext.executeQueryAsync(
+        function(){deferred.resolve()},
+        function(e){deferred.reject(e);}
+    );
+    return deferred.promise();
+}
+
+function Query(siteURL, searchParams){ 
+    
+    var searchPath  ='"'+siteURL+'"'; //searchParams
+    var fullUrl = siteURL + "/_api/search/query?querytext='" + searchParams + "+path:"+ searchPath+ "'";
+    console.log('search = ', fullUrl);
+    var deferred=$j.Deferred();
+    var nonext = false;
+    var results2 = [];
+    getItems(0);
+
+    function getItems(startRow){ 
+        $j.ajax({
+            url: fullUrl + "&startrow=" + startRow + "&rowlimit=500",
+            type: "GET",
+            headers: {
+                "accept": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+            },
+            success: function(data){
+                var relevantResults = data.d.query.PrimaryQueryResult.RelevantResults;
+                var results = relevantResults.Table.Rows.results;//GET THE ALL RESULTS
+                var totalRows = relevantResults.TotalRows; //TOTAL RETURN RESULTS
+                var getMethodSearchResultsHtml = '', title = '', link = '';
+                var allResults=[];
+                var totalRows = relevantResults.TotalRows;  
+                console.log('total rows = ', totalRows);
+                var pageSize = 500;   
+
+                if (relevantResults.RowCount === 0) {//CHECK IF SEARCH RESULT RETURN ANY ITEM
+                    console.log('no relevant results found');
+                    //NO RECORD FOUND
+                } else {
+
+                    $j.each(results, function (index, result) {
+                        var listItem = {};
+                        $j.each(result.Cells.results, function(i,v){
+                            if(targetFields.indexOf(v.Key) !=-1){
+                                listItem[v.Key] = v.Value;
+                            }
+                        });
+
+                        allResults.push(listItem);
+                    });
+                }
+
+                results2 = results2.concat(allResults);
+                console.log('results2 = ', results2);
+                console.log('totalRows', totalRows)
+                console.log('startRow', startRow);
+
+                if(totalRows - startRow > pageSize){
+                    //need to keep calling
+                    console.log('keep going. startRow =  ', startRow);
+                    getItems(startRow+pageSize);
+                }else{
+                    console.log('done getting results, now resolve!');
+                    deferred.resolve(results2);
+                }
+            },
+            error: function(data){
+                errorFunction(data);
+                deferred.reject(data);
+            },
+            complete: function(data){
+            }
+        });
+    }
+    return deferred;
+}
+
+</script>
+
+<!--SP Helper v_4.js-->
+<script>
+    
+/*
+Author: MSgt William Joseph Bechard
+Date: 13 Feb 2020
+Email: william.bechard@us.af.mil
+
+Requirements:
+    Jquery must be loaded on the site
+
+Note: if the script you are using is on the same site as the list, rather than filling out the siteURL variable
+      you can instead use _spPageContextInfo.webAbsoluteUrl
+*/
+
+/** Info
+ * Summary. Deletes ENTIRE list using AJAX
+ * Description. Deletes a list. Be careful with this!!!
+ *  @param {string} ListTitle Title of the SP List to delete
+ *  @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:
+ * var deleteList = SPHDeleteList('NameOfListToDelete', siteURL);
+ * 
+ * deleteList.done(function(data){
+ *      //success
+ * }).fail(function(e){ alert('Failed Delete List! ' + e.responseText);});
+ */
+function SPHDeleteList(ListTitle, siteURL){
+    var fullUrl = siteURL +"/_api/web/lists/GetByTitle('"+ListTitle+"')/items";
+    var deferred=$j.Deferred();  
+    $j.ajax({
+        url: fullUrl,
+        type: "DELETE",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+            "X-RequestDigest": $j("#__REQUESTDIGEST").val(),
+            "IF-MATCH": "*"
+        },
+        success: function(data){
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+
+
+/** Info
+ * Summary. Deletes only 1 item from list based on the item's ID
+ * Description. With the passed List Title and the item ID, uses AJAX call
+ *         to delete just that item from the list
+ *  @param {string} ListTitle the target name of the SP List
+ *  @param {int} id the item id that is to be deleted
+ *  @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:
+ * var itemDelete = SPHDeleteListItem('ListTitle', 'StringID of item to delete', 'siteURL');
+ * 
+ * itemDelete.success(function(data){
+ *      //item successfully deleted
+ * }).fail(function(e){ alert('Failed Deleting Item! ' + e.responseText);});
+ */
+function SPHDeleteListItem(ListTitle, id, siteUrl){
+    var fullUrl = siteUrl +"/_api/web/lists/GetByTitle('"+ListTitle+"')/items(" + id.toString() + ")";
+    var deferred=$j.Deferred();  
+    $j.ajax({
+        url: fullUrl,
+        type: "DELETE",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+            "X-RequestDigest": $j("#__REQUESTDIGEST").val(),
+            "IF-MATCH": "*"
+        },
+        success: function(data){
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+/** Function Gets SP User ID of the logged in user
+
+ * How To Use
+ * var user = SPHGetUserID(); 
+ *     user.done(function(data){
+ *          console.log(data.d.results[0]);
+ *     }).fail(function(e){ alert('Failed Getting User! ' + e.responseText);}); 
+ */
+function SPHGetUserID(){
+    var siteUrl = _spPageContextInfo.webAbsoluteUrl;
+    var deferred=$j.Deferred();  
+    var siteUrl = _spPageContextInfo.webAbsoluteUrl;
+    var fullUrl = siteUrl +"/_api/web/CurrentUser";
+    
+    return $j.ajax({
+        url: fullUrl,  
+        type: "GET",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+        },
+        success: function(data){
+
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+/** Function returns the lookup result of a SP User ID
+ *  
+ * @param {string} UserID : The string representation of the SP User ID 
+ * How To Use
+ * var user = SPHGetUser('112312'); //the string number needs to be of a userId in the sharepoint system
+ * user.done(function(data){
+ *      console.log(data.d.results[0]);
+ * }).fail(function(e){ alert('Failed Getting User! ' + e.responseText);}); 
+ * or
+ * var user = SPHGetUser(_spPageContextInfo.userId.toString());  //this will use the logged in user id
+ * user.done(function(data){
+ *      console.log(data.d.results[0]);
+ * }).fail(function(e){ alert('Failed Getting User! ' + e.responseText);});
+ */
+function SPHGetUser(UserID)
+{
+    var siteUrl = _spPageContextInfo.webAbsoluteUrl;
+    var deferred=$j.Deferred();  
+    var siteUrl = _spPageContextInfo.webAbsoluteUrl;
+    var fullUrl = siteUrl +"/_api/Web/SiteUserInfoList/Items?$filter=Id eq " + UserID ;
+    
+    return $j.ajax({
+        url: fullUrl,  
+        type: "GET",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+        },
+        success: function(data){
+
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+
+/** Info
+ * Summary. Gets all items of a SP List
+ * Description. Returns data from the SP List. Also fills SPHListItems with that data.
+ *        Data can be retrieved by user with SPHReturnItems()
+ * @param {string} ListName The name of the SP List that is targeted
+ * @param {string} additionalParameters Additional text for the Ajax call after /items 
+ *                 will likely begin with ?$select etc or can be an empty string for returning allItems
+ * @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:  
+ * var allListItems = SPHGetListItems('ListName', '', 'siteUrl');  
+ *     for advanced pulling from the list if desired but not necessary
+ * allListItems.done(function(data){
+ *      console.log(data.d.results);
+ * }).fail(function(e){ alert('Failed Getting List Items! ' + e.responseText);});
+ */
+function SPHGetListItems(ListName, additionalParameters, siteUrl)
+{ 
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var fullUrl = siteUrl + "/_api/web/lists/GetByTitle('" + ListName + "')/items" + additionalParameters;
+    var deferred=$j.Deferred();
+    var nonext = false;
+    var results = [];
+    getItems();
+
+    function getItems(){ 
+        $j.ajax({
+            url: fullUrl,
+            type: "GET",
+            headers: {
+                "accept": "application/json;odata=verbose",
+                "content-type": "application/json;odata=verbose",
+            },
+            success: function(data){
+                results = results.concat(data.d.results);
+                //this allows us to get over the SP item limit of 100 items returned
+                if (data.d.__next) {
+                    fullUrl = data.d.__next;
+                    getItems();
+                }else{
+                    deferred.resolve(results);
+                }
+            },
+            error: function(data){
+                errorFunction(data);
+                deferred.reject(data);
+            },
+            complete: function(data){
+            }
+        });
+    }
+    return deferred;
+}
+
+function IsCurrentUserMemberOfGroup(grpNames){
+    var deferred=$j.Deferred(); 
+    var isUserInGroups=false;
+    var url = _spPageContextInfo.webAbsoluteUrl + "/_api/web/currentuser/groups?$select=Title";
+    var results = [];
+    getItems();
+    function getItems(){ 
+        $j.ajax({
+            url: url,
+            type: "GET",
+            async:false,
+            headers: {
+                "accept": "application/json;odata=verbose",
+            },
+            success: function (data) {
+
+        
+                results = results.concat(data.d.results);
+                //this allows us to get over the SP item limit of 100 items returned
+                if (data.d.__next) {
+                    fullUrl = data.d.__next;
+                    getItems();
+                }else{
+                    for(var i=0;i<grpNames.length;i++){
+                        for(var j=0;j<data.d.results.length;j++){
+                            if(grpNames[i]==data.d.results[j].Title){
+                                isUserInGroups=true;
+                            }
+                        }
+                    } 
+                    deferred.resolve(isUserInGroups);
+                }               
+            },
+            error: function (error) {
+                //console.log(JSON.stringify(error));  
+            }
+        });
+    };
+    //return isUserInGroups;
+    return deferred;
+}
+
+//Helper function to resolve the Item type used when updating list items.
+//   Note:this will fail if listName isnt simple no space no special char like _
+function SPHGetItemType(name) {
+    return "SP.Data." + name.charAt(0).toUpperCase() + name.slice(1) + "ListItem";
+}
+
+/** Info
+ * Summary. Grabs an item from a SP List if the id is found
+ * Description. Uses specifically crafted AJAX call to return an item
+ *        (to SPHListItems) if the id is found
+ * @param {string} ListName : Name of SP List
+ * @param {int} id : ID of the item that will be updated
+ * @param {object} itemProperties : object of Column/Field name and its value
+ *    ex  itemProperties["Title"] = "Title of this item"
+ *        itemProperties["Status"] = "Done"  ...etc
+ *  @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * @param {string} contentType: Unless you need to set to something special you should use the helper function
+ *                              SPHGetItemType("name of list") to pass the result to this function as
+ *                              it will easily give you the contentType for a given list
+ * Use:
+ * var updItem = SPHUpdateItemByID('ListName', 'string id to update', itemProperties, 'siteUrl', SPHGetItemType('ListName'));
+ * 
+ * updItem.done(function(data){
+ *       //success!!!
+ * }).fail(function(e){ alert('Failed Updating Item by ID! ' + e.responseText);});
+ * 
+ *   see below for how to structure itemProperties
+ * //https://sharepoint.stackexchange.com/questions/105380/adding-new-list-item-using-rest
+/*
+//specify item properties
+var itemProperties = {'Title':'Order task','Description': 'New task'};
+*/
+function SPHUpdateItemByID(ListTitle, id, itemProperties, siteURL, contentType)
+{  
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var siteUrl = siteURL;
+    var fullUrl = siteUrl +"/_api/web/lists/GetByTitle('"+ListTitle+"')/items(" + id.toString() + ")";
+    var deferred=$j.Deferred(); 
+    var itemPayload = {
+        '__metadata': {'type': contentType}
+    };
+
+    for(var prop in itemProperties){
+        itemPayload[prop] = itemProperties[prop];
+    }
+    
+    console.log(JSON.stringify(itemPayload));
+    $j.ajax({
+        url: fullUrl,
+        type: "POST",
+        data: JSON.stringify(itemPayload),  
+        headers: {
+            "Accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+            "X-RequestDigest" : $j("#__REQUESTDIGEST").val(),
+            "X-HTTP-Method": "MERGE",
+            "If-Match": "*"
+        },
+        success: function(data){
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+//https://sharepoint.stackexchange.com/questions/105380/adding-new-list-item-using-rest
+
+/** Info
+ * Summary. Grabs an item from a SP List if the id is found
+ * Description. Uses specifically crafted AJAX call to return an item
+ *        (to SPHListItems) if the id is found
+ * @param {string} ListName : Name of SP List
+ * @param {int} id : ID of the item that will be updated
+ * @param {object} itemProperties : object of Column/Field name and its value
+ *    ex  itemProperties["Title"] = "Title of this item"
+ *        itemProperties["Status"] = "Done"  ...etc
+ * @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * @param {string} contentType: Unless you need to set to something special you should use the helper function
+ *                              SPHGetItemType("name of list") to pass the result to this function as
+ *                              it will easily give you the contentType for a given list
+ * Use:
+ * //specify item properties
+ *   var itemProperties = {};
+ *   itemProperties["Name of Property"] = value of property
+ *     ie: itemProperties["Title"] = "itemTitle"
+ *         itemProperties["Status"] = "Complete"
+ * var updItem = SPHCreateListItem('ListName', itemProperties, 'siteURL', SPHGetItemType('ListName'));
+ * 
+ * updItem.done(function(data){
+ *      //success
+ * }).fail(function(e){ alert('Failed creating List Item! ' + e.responseText);});
+ *     
+ * //https://sharepoint.stackexchange.com/questions/105380/adding-new-list-item-using-rest
+**/
+function SPHCreateListItem(listName, itemProperties, siteURL, contentType) {
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    itemProperties["__metadata"] = { "type": contentType };
+    var deferred=$j.Deferred(); 
+    $j.ajax({
+        url: siteURL + "/_api/web/lists/getbytitle('" + listName + "')/items",
+        type: "POST",
+        contentType: "application/json;odata=verbose",
+        data: JSON.stringify(itemProperties),
+        headers: {
+            "Accept": "application/json;odata=verbose",
+            "X-RequestDigest": $j("#__REQUESTDIGEST").val()
+        },
+        success: function (data) {
+            deferred.resolve(data);
+        },
+        error: function (data) {
+            errorFunction(data);
+            deferred.reject(data);
+        }
+    });
+
+    return deferred;
+}
+
+/** Info
+ * Summary. Grabs an item from a SP List if the id is found
+ * Description. Uses specifically crafted AJAX call to return an item
+ *        (to SPHListItems) if the id is found
+ * @param {string} ListName 
+ * @param {int} id
+ * @param {string} site URL where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:
+ * var targetItem = SPHGetListItemByID('ListName', 'id as string');
+ * 
+ * targetItem.done(function(data){
+ *     console.log('item =', data.d.results);
+ * }.fail(function(e){ alert('Failed Getting List Item by ID! ' + e.responseText);});
+ */
+function SPHGetListItemByID(ListTitle, id, siteUrl)
+{   
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var fullUrl = siteUrl +"/_api/web/lists/GetByTitle('"+ListTitle+"')/items(" + id.toString() + ")";
+    var deferred=$j.Deferred();  
+    $j.ajax({
+        url: fullUrl,
+        type: "GET",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+        },
+        success: function(data){
+
+            deferred.resolve(data);
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+/** Info
+ * Summary. Gets all items of a SP List
+ * Description. Returns data from the SP List. Also fills SPHListItems with that data.
+ *        Data can be retrieved by user with SPHReturnItems()
+ * @param {string} ListName The name of the SP List that is targeted
+ * @param {string} siteURL: web address where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:
+ * var allColumnsInList = SPHGetListColumns('List Name', 'siteAddress');
+ * allColumnsInList.done(function(data){
+ *     console.log(data.d.results);
+ * }).fail(function(e){ alert('Failed Getting List Columns! ' + e.responseText);});
+ */
+function SPHGetListColumns(ListName, siteUrl)
+{    
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var results = [];
+    var fullUrl = siteUrl + "/_api/web/lists/GetByTitle('" + ListName + "')/Fields?$filterfilter=Hidden eq false and ReadOnlyField eq false";
+    var deferred=$j.Deferred();  
+    $j.ajax({
+        url: fullUrl,
+        type: "GET",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+        },
+        success: function(data){
+            console.log('sphgetlistcolumns ', data.d.results);
+            results = results.concat(data.d.results);
+                //this allows us to get over the SP item limit of 100 items returned
+                if (data.d.__next) {
+                    fullUrl = data.d.__next;
+                    getItems();
+                }else{
+                    deferred.resolve(results);
+                }
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+
+/** Info
+ * Summary. Gets all lists at a site
+ * Description. Returns all lists from a sharepoint site.
+ * @param {string} siteURL: web address where list exists ex: if my AllItems.aspx address is
+ *                   https://.../quality_assurance/Lists/CIMB/AllItems.aspx then
+ *                   siteURL = "https://.../quality_assurance"
+ * Use:
+ * var allSites = SPHGetAllSiteLists('siteAddress');
+ * allSites.done(function(data){
+ *     console.log(data.d.results);
+ * }).fail(function(e){ alert('Failed Getting all Lists from the site! ' + e.responseText);});
+ */
+function SPHGetAllSiteLists(siteUrl)
+{    
+    UpdateFormDigest(_spPageContextInfo.webServerRelativeUrl, _spFormDigestRefreshInterval);
+    var fullUrl = siteUrl + "/_api/web/lists";
+    var deferred=$j.Deferred();  
+    $j.ajax({
+        url: fullUrl,
+        type: "GET",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+        },
+        success: function(data){
+            results = results.concat(data.d.results);
+                //this allows us to get over the SP item limit of 100 items returned
+                if (data.d.__next) {
+                    fullUrl = data.d.__next;
+                    getItems();
+                }else{
+                    deferred.resolve(results);
+                }
+        },
+        error: function(data){
+            errorFunction(data);
+            deferred.reject(data);
+        }  
+    });
+    return deferred;
+}
+
+/** Info
+ * Summary. Displays error info to the console
+ * Description. data from the AJAX call is given and the error info is displayed to the console
+ * @param {ajax} data AJAX return data
+ */
+//Error handler
+function errorFunction(data)
+{
+    console.error('error noted in SPHelper_v4.js');
+    console.error(data);
+    console.error(JSON.stringify(data.responseJSON));
+    console.error(data.responseJSON.error.message.value);
+    console.error(JSON.stringify(data.responseJSON));
+}
+
+
+/*
+Open Modal for SharePoint List Forms (DispForm.aspx, NewForm.aspx etc)
+Note: refreshOnSave is if you want the main page to refresh when user clicks on save of the List Form
+      true=Page Refreshes   false=Page does not Refresh
+*/
+function openSPModal(URL, modalTitle, modalWidth, modalHeight, refreshOnSave) {
+    var options = {
+      url: URL,
+      allowMaximize: false,
+      showClose: true,
+      width: modalWidth,
+      height: modalHeight,
+      title: modalTitle,
+      dialogReturnValueCallback: function dialogReturnValueCallback(dialogResult) {
+        if (dialogResult != SP.UI.DialogResult.cancel) {
+          //When Save is clicked
+          if(refreshOnSave) SP.UI.ModalDialog.RefreshPage(dialogResult); //reload the page
+        }
+      }
+    };
+    SP.UI.ModalDialog.showModalDialog(options);
+}
+
+</script>
+
+<input id='beginSearch' type='button' value='PII Search' disabled>
+<div class="SP-resultsWrapper"></div>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">BECHARD, WILLIAM J MSgt USAF HAF NASIC/SCP</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">BECHARD, WILLIAM J MSgt USAF HAF NASIC/SCP</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:Order msdt:dt="string">6500.00000000000</mso:Order>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
