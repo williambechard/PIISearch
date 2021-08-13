@@ -2,6 +2,7 @@
 #main{
     width: 100%;
     height: 800px;
+    padding-right:0px;
 }
 #sideNavBox{
     display:none;
@@ -79,13 +80,11 @@ input[aria-controls^="DataTables"] {
 .dataTables_length, .dataTables_wrapper, .dataTables_filter, .dataTables_info, .dataTables_processing, .dataTables_paginate{
     color:white !important;
 }
-.tile{
-    margin-top:20px;
-}
+
 .block{
     padding:20px;
-    border:2px solid black;
-    border-radius:10px;
+    margin-top:1px;
+    min-height: 596px;
 }
 table.dataTable tfoot th, table.dataTable tfoot td{
     padding:4px !important;
@@ -141,9 +140,11 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     color:white
 }
 .dtHeader{
-    color:white;
+    color:white !important;
     font-size:xx-large;
     font-weight: bold;
+    margin:0px;
+    padding:0px;
 }
 .disabledLink{
     color:	#C8C8C8!important;
@@ -156,8 +157,15 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 #mainPage{
     overflow-y:auto;
 }
+.fa-times:hover{
+    color:red!important;
+    cursor:pointer;
+}
+#SearchBox{
+    display:none;
+}
 </style>
- 
+<!--https://github.com/adamculpepper/pure-css-navigation    use this library for nested drop downs--> 
 <link rel="stylesheet" href="/sites/20127/grps/sc/quality_assurance/SiteAssets/Scripts/pure-css-navigation.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-deep-purple.css">
@@ -171,7 +179,11 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js" integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <span id='tempAccord' class="w3-hide btnHeader">
-    <button onclick="openAccord(this); return false;" class="w3-btn w3-block w3-light-grey w3-left-align" style="margin-top:8px!important; margin-bottom:8px!important;"><i onclick="makeEditable(this); return false;" class='fa fa-pencil-alt' style="padding-right:8px;" aria-hidden="true"></i><input  class="btnTitle" value="BLANK" disabled onfocusout="textLostFocus(this);" onKeypress="editKeypress(this);"  onclick="inputClick=true;"></button>
+    <button onclick="openAccord(this); return false;" class="w3-btn w3-block w3-light-grey w3-left-align" style="margin-top:8px!important; margin-bottom:8px!important;">
+        <i onclick="makeEditable(this); return false;" class='fa fa-pencil-alt' style="padding-right:8px;" aria-hidden="true"></i>
+        <input class="btnTitle" value="BLANK" disabled onfocusout="textLostFocus(this);" onKeypress="editKeypress(this);" onclick="inputClick=true;">
+        <i onclick="removePanel(this); event.stopPropagation(); return false;" class="fa fa-times w3-right" style="color:black;"></i>
+    </button>
     <div class="w3-container containerBody" style="display:none; height:auto; border:2px solid grey; transform:translateY(-10px);">
         <button class="w3-green folderBTN" onclick="addFolder(this);return false;">+</button>
         <div class='w3-container URLs' style="margin-bottom:10px; display:flex; flex-direction:row; justify-content:space-evenly; align-items: center; align-content:space-around;">
@@ -237,7 +249,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
             <div class='w3-container w3-theme-l3 w3-center'><h2><span class="headerArea">Settings</span></h2></div>
             <div class="bodyArea w3-card-4 w3-theme-l2">
                 <div id='sPage' class='w3-container w3-theme-l2'>
-                    <div class='w3-theme-d1 w3-card-4' style="width:100%; height:88%; padding:4%; margin-top:2%; margin-bottom:2%; min-height:500px;">
+                    <div class='w3-theme-d1 w3-card-4' style="width:100%; height:88%; padding:6%; margin-top:1%; margin-bottom:4%; min-height:500px;">
                         <span class='btnHeader'>
                         <button id='mainAccord' onclick="openAccord(this); return false;" class="w3-btn w3-block w3-light-grey w3-left-align"><i class='fa fa-pencil-alt' style="padding-right:8px;" onclick="makeEditable(this);  return false;"></i><input class="btnTitle" value="BLANK" disabled onfocusout="textLostFocus(this);" onKeypress="editKeypress(this);"></button>
                         <div id="MasterAccord" class="w3-container containerBody" style="display:none; max-height:500px; overflow-y:auto; height:auto; padding:10px; border:2px solid grey; transform:translateY(-3px);">
@@ -262,7 +274,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
                                 </div>
                             </div>
                         </div>
-                        <input type='button' class='w3-button w3-green w3-right' id='saveSettingsBTN' value="Save" onclick="saveSettings(); return false;" style="margin-top:20px;">
+                        <input type='button' class='w3-button w3-green w3-right' id='saveSettingsBTN' value="Save" onclick="saveSettings(); return false;" style="margin-top:6px;">
                     </span>
                     </div>
                 </div>
@@ -275,15 +287,15 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 <div id="pageTemplate" class="tab w3-theme-d2" style="display:none;">
     <div class='greyOut'></div>
     <div class="loader"></div>
-    <div id='vertNav' class="nav w3-bar-block w3-theme-d5 w3-col" style="width: 5%;">
+    <div id='vertNav' class="nav w3-bar-block w3-theme-d5 w3-col" style="width: 5%; transform:translate(10px, 55px);">
         <div type="button"  class="w3-button w3-bar-item w3-theme-l1"  onclick="changeTab2('page', 'w3-theme-l1', this, '0');return false;" id="homeButton"><i class="fa fa-table fa-2x" ></i></div>
         <div type="button"  class="w3-button w3-bar-item"  onclick="changeTab2('page', 'w3-theme-l1', this, '1');return false;"><i class="fa fa-chart-bar fa-2x" ></i></div>
         <div type="button"  class="w3-button w3-bar-item"  onclick="changeTab2('page', 'w3-theme-l1', this, '2');return false;"><i class="fa fa-project-diagram fa-2x" ></i></div>    
     </div>
     <div class="tabPage">
-        <h3 class='dtHeader w3-center'></h3>
+        <h2 class='dtHeader w3-center'></h2>
         <!-- Data TABLE -->
-        <div class="block w3-theme-d5" id="dtContainer">    
+        <div class="block w3-theme-l1" id="dtContainer">    
             <table class="display" style="width:100%;">    
                 <thead>
                     <tr></tr>          
@@ -293,81 +305,341 @@ table.dataTable tfoot th, table.dataTable tfoot td{
                 </tfoot>    
             </table>    
         </div>
-        <br>
-        <div style='display:none;' class='block w3-theme-d5 chartCanvas'>
+        <div style='display:none;' class='block w3-theme-l1 chartCanvas'>
             <div class='canvasNAV nav w3-bar-block w3-theme-d5 w3-row'></div>
             <div class='canvasArea'></div>
         </div>
-        <div style='display:none;' class='relation block w3-theme-d5'>
+        <div style='display:none;' class='relation block w3-theme-l1'>
         </div>
-        <br>
     </div>
 </div>
 
 <script>
     var masterURL='/sites/20127/grps/sc'; ///This is the master location you want the search terms to exist at
-    var list_admin='PIIAdmin';
-    var list_settings ='PIIAdminSettings';
-    var allSettingsData=[];
-    var allItems={};
-    var allOptions = {};
-    var PIIAdminSettingsID=0;
-    var allAssigned = [];
-    var greyScale=[
+    var list_admin='PIIAdmin';  //This will be the names of the list that we will create/look for
+    // This list will have one item per url. It will have a multiline text field called JSON and will hold the result of each monthly PII search (for that url)
+    var list_settings ='PIIAdminSettings'; //This will be the names of the list that we will create/look for
+    // this list will be where we store the Org code agains the url. This allows us to have a nested structure that can be defined/modified
+    
+    //Delete
+    //var allSettingsData=[];
+    //var allItems={};
+    //var allOptions = {};
+    // treeLevel = {};   <-- this doesnt seem to be used?
+
+    var PIIAdminSettingsID=0; //used to store the id of the list item (there should only be one) ID. (conversely could probably save the item)
+    var allAssigned = [];  //used to store all URLs that are associated with an Org (as only 1 can be assigned)
+    greyScale=[  //grey scale for our accordian so child layers appear darker the further you are in the accordian
         '#BEBEBE',
         '#A9A9A9',
         '#909090',
         '#808080'
     ];
-    var URLOrg = {};
-    
-    var PIITree = {};
-    var treeDepth= -1;
-    var tData = {};
 
-/// ---------- SETUP
-    function rgb2hex(rgb){
-        rgb = rgb.substr(4, rgb.length-5).replaceAll(' ', '').split(',');
-        console.error('rgb match = ', rgb);
-         return "#" +
-            ("0" + parseInt(rgb[0],10).toString(16)).slice(-2).toUpperCase() +
-            ("0" + parseInt(rgb[1],10).toString(16)).slice(-2).toUpperCase() +
-            ("0" + parseInt(rgb[2],10).toString(16)).slice(-2).toUpperCase();
-    }
-    //as we want to check if lists exist or not, we need to not check until sp.js is loaded
+    var URLOrg = {}; //Convenient dictionary of url -> Org (URL should always be unique, and only ever point to one Org, so this should work without issue)
+    var treeDepth= -1; //used when we load the Admin setup, so we can determine at what branch each org is at
+    var tData = {}; //stores the admin settings structure for later lookup uses
+    var allData= []; //holds all the data from list_admin
+
+    //Ensure we call the listCheck function right after sp.js is loaded
+    // as we want to check if lists exist or not, we need to not check until sp.js is loaded
     ExecuteOrDelayUntilScriptLoaded(listCheck, "sp.js");
+
+/// ---------- Helper Functions
+function rgb2hex(rgb){
+    rgb = rgb.substr(4, rgb.length-5).replaceAll(' ', '').split(',');
+   
+    return "#" +
+        ("0" + parseInt(rgb[0],10).toString(16)).slice(-2).toUpperCase() +
+        ("0" + parseInt(rgb[1],10).toString(16)).slice(-2).toUpperCase() +
+        ("0" + parseInt(rgb[2],10).toString(16)).slice(-2).toUpperCase();
+}
+
+//convert a string number into a string 3 letter month
+function numberToMonth(m){
+    var n='';
+    switch(m){
+        case '1':
+            n='Jan';
+            break;
+        case '2':
+            n='Feb';
+            break;
+        case '3':
+            n='Mar';
+            break;
+        case '4':
+            n='Apr';
+            break;
+        case '5':
+            n='May';
+            break;
+        case '6':
+            n='Jun';
+            break;
+        case '7':
+            n='Jul';
+            break;
+        case '8':
+            n='Aug';
+            break;
+        case '9':
+            n='Sep';
+            break;
+        case '10':
+            n='Oct';
+            break;
+        case '11':
+            n='Nov';
+            break;
+        case '12':
+            n='Dec';
+            break;
+    }
+
+    return n;
+}
+
+// return Org name from URL
+function URL2Org(URL){
+    if(URLOrg.hasOwnProperty(URL)){
+        return  URLOrg[URL];
+    }else return '';
+}
+
+/// ---------------  Initial Start
+ //Checks if lists that are required exists or not
+    //   if not it will attempt to create the list
+function listCheck(){
+        console.log('Main.html : listCheck()');
+        console.log('This function serves to setup our program. It does 2 critical things:');
+        console.log(' 1. Gets the list item from %s and if there is data loops through it, setting up the Settings area of the program.', list_settings);
+        console.log(' 2. Gets the list items from the %s list which is every url and its data (which shows the PII checks), and sets up the Home area of the program.', list_admin);
+        var allPromises=[]; //will store both our promises to our list call(s)
+        
+        console.log('requesting list items from', list_settings);
+
+        //add to our promise array (and execute) a grab of ID and the JSON field from the list_settings list
+        allPromises.push(SPHGetListItems(list_settings, '?$select=JSON,Id', window.location.origin + masterURL).done(function(data){
+            if(data.length>0) { //we first check if the list has any data
+                //    if so then we can act on it. Note that there should only ever be 1 list item
+                //    so we always only look at the first element in the array data[0]
+                
+                // capture the ID of this list item, as we will need it if/when we save back to the list
+                PIIAdminSettingsID= data[0].Id;
+                
+                //parse the string data into an Object
+                tData = JSON.parse(data[0].JSON);
+                console.log('data from %s = %o for ID:%s',  list_settings, tData, PIIAdminSettingsID);
+
+                //function wich sets up the Settings Accordion
+                loadSettings(tData, $('#MasterAccord').closest('.btnHeader'));
+
+                console.log('all URLs that have been assigned to an Org = ', allAssigned);
+                console.log('Flattened Array of Each List Item from %s : %o', list_settings, allData);
+
+                // Now we add to our promise array (and execute) a request to get items from the list_admin list
+                console.log('requesting list items from ', list_admin);
+                allPromises.push(SPHGetListItems(list_admin, '?$select=Title,Id,JSON', window.location.origin + masterURL).done(function(adminDATA){
+                    if(adminDATA.length>0){
+                        SetupTables(allData, adminDATA);
+                        console.log('Table Setup Complete');
+                        // This is responsible for setting up the navigation on the Home page (the nested Org Nav strucutre)
+                        HomeTab(tData); 
+                        console.log('Home Nav Setup Complete');
+
+                        createHealthTable(adminDATA.map(function(l){
+                            var j;
+                             
+                            j= JSON.parse(l.JSON);
+                            //figure out Org based on Title / URL
+                            var org = URL2Org(l.Title);
+                            //add to each element
+                            $.each(j, function(i,v){
+                                v['Org'] = org;
+                            });
+                            
+                            return j}), ['Date', 'Org', 'Found', 'Reviewed', 'User']);
+                        var allUnassigned = adminDATA.filter(function(item){
+                             return allAssigned.indexOf(item.Title) ==-1 ;
+                        })
+
+                        //now fill up the Selects
+                        $.each($('#MasterAccord').find('select'), function(i,v){
+                            $.each(allUnassigned, function(i,vv){
+                                console.log('vv - ', vv);
+                                $(v).append('<option value="'+vv.Title+'">'+vv.Title+'</option>');
+                            });
+                        });
+
+                        console.log('adminData ', adminDATA[0].Id);
+
+                    }else alert('No Data found in the PIIAdmin list!');
+
+                    //make sure first tab is selected
+                    $($('#horzNav').find('.w3-button:visible')[0]).click();
+                }));
+            }
+        }).fail(function(e){ 
+            //we try to create the main list here
+            console.log('PIIAdmin Settings List not detected. Attepmting to create it now.'); 
+            allPromises.push(createList(list_settings, window.location.origin + masterURL).done(function(data){
+                allPromises.push(addFieldToList(list_settings, [{'Name':'JSON', 'Type':'Note'}],  window.location.origin + masterURL).done(function(){console.log('created Field');}).fail(function(e){ console.error('Failed creating field! ' + e);}));
+                PIIAdminSettingsID=-1; //indicate that the list didnt exist before
+            }));
+        }));
+
+        $.when.apply($, allPromises).done(function(){
+            console.log('all Promises done');
+            $( "#matchRow" ).sortable({
+                placeholder: "ui-state-highlight"
+            });
+            $( "#matchRow" ).disableSelection();
+            
+        });
+
+    }
+
+$(document).ready(function(){
+    $("#homeButton").click(); //Sets the Home area as initial area when page is loaded
+    $('#tempAccord').closest('[id^="MSOZoneCell_WebPart"]').css('transform', 'translateY(-90px)');
+});
+
+/// ---------- Settings Area
+
+// Recursive function that sets up each Accordion and its children
+function loadSettings(JSONData, target){
+
+target.find('.btnTitle').val(JSONData.Title); //Set the Title of the Accord Panel
+treeDepth++; //add to the tree depth
+var localDepth = treeDepth; //as we deal with a recursive function we need to have a local variable separate from the global one
+//add a new property Level which store the current tree depth
+JSONData['Level'] = localDepth;
+
+// This array effectivly flattens out our nested array
+allData.push({'Title':JSONData.Title, 'URLs':JSONData.URLs});
+
+//get the first navPoint 
+//   location is used to remember and set where we are while we traverse the tree
+var location = $('#navListArea').find('.navPoint');
+
+if(location.length==0) location = $('#navListArea'); //when we first start we are here
+
+location.removeClass('navPoint'); //now remove the class
+ 
+ //determine if child ul exists, if so we need to stick to li
+if(location.is('li') || location.is('nav')){
+    location.append('<ul><li class="navPoint" onclick="changePage(this); event.stopPropagation(); return false;"><span class="name">'+JSONData.Title+'</span></li></ul>');
+}else location.append('<li class="navPoint" onclick="changePage(this); event.stopPropagation(); return false;"><span class="name">'+JSONData.Title+'</span></li>');
+
+var origNavLi =location.find('.navPoint');
+
+// loop through URLs
+$.each(JSONData.URLs, function(i, v){
+    if(v != ''){ //as long as there is data
+        $(target.find('.URLs:first').find('table')[0]).find('tbody').append('<tr><td style="color:black; white-space:nowrap;">' + v + '</td><td><i onclick="removeAssigned(this); return false;" class="fa fa-times" style="color:black;"></i></td></tr>')
+        allAssigned.push(v);
+    }
+});
+
+//set the background color to grey
+target.find('.containerBody').css('background-color', greyScale[localDepth]);
+
+//now traverse the children
+$.each(JSONData.children, function(i,v){
+    treeDepth= localDepth;
+
+    //create the html and send it as the target
+    var container =  $(target).find('.containerBody:first');
+
+    var newFolder = $('#tempAccord').clone();
+    newFolder.attr('id', '');
+    newFolder.removeClass('w3-hide');
+
+    container.append(newFolder);
+    //call the function again - recursive functions FTW!
+    loadSettings(v, newFolder);
     
-    function removeAssigned(e){
-        var targetURL = $(e).closest('td').prev().text();
-        $(e).closest('tr').remove();
-        //now go through and remove this item from ALL Selects
+    //when we are done we need to reset our navPoint
+    $('#navListArea').find('.navPoint').removeClass('navPoint');
+    origNavLi.find('ul:first').addClass('navPoint');
+});
+}
+
+// Save Settings Area
+function saveSettings(){
+console.log('saveSettings()');
+
+
+var allSettings = [];
+var master = $('#sPage').find('#MasterAccord');
+
+console.log('master = ', master);
+var PIITree = getAccordItems(master.closest('.btnHeader'));
+
+console.log('piiTree', PIITree);
+console.log('PIIAdminSettingsID ', PIIAdminSettingsID);
+//now save tree as JSON
+if(PIIAdminSettingsID!=-1){
+    SPHUpdateItemByID(list_settings, PIIAdminSettingsID, {'JSON':JSON.stringify(PIITree)}, window.location.origin + masterURL, SPHGetItemType(list_settings)).done(function(d){
+        window.location.reload();
+    }).fail(function(e){ alert('Failed Updating Settings! ' + e.responseText);});;
+}else{
+    //new item needs to be created
+    SPHCreateListItem(list_settings, {'JSON':JSON.stringify(PIITree)}, window.location.origin + masterURL, SPHGetItemType(list_settings)).done(function(d){
+        window.location.reload();
+    }).fail(function(e){ alert('Failed Creating New Settings!' + e.responseText);});;
+}
+}
+
+//Remove an Assigned URL from an Org (in the Settings)
+function removeAssigned(e){
+    var targetURL = $(e).closest('td').prev().text();
+    $(e).closest('tr').remove();
+    //now go through and remove this item from ALL Selects
+    $.each($('#MasterAccord').find('select'), function(i,v){
+        console.log(' v found = ', v);
+        $(v).append('<option value="'+ targetURL +'">'+ targetURL + '</option>');
+    });
+}
+
+//Assigns a URL for an Org (in the Settings)
+function AssignURL(e){
+    //verify a proper option is selected
+
+    var selectedValue = $(e).prev().find('option:selected').val();
+
+    if(selectedValue !='' ){
+
+        //remove from all lists and add to only this Assigned area
+        $(e).closest('.URLs').find('.targetAssigned tbody').append('<tr><td style="color:black!important; white-space:nowrap;">'+selectedValue +'</td><td><i onclick="removeAssigned(this); return false;" class="fa fa-times" style="color:black;"></i></td></tr>')
+
+        //no go through and remove this item from ALL Selects
         $.each($('#MasterAccord').find('select'), function(i,v){
-            console.log(' v found = ', v);
-            $(v).append('<option value="'+ targetURL +'">'+ targetURL + '</option>');
+            $(v).children('option[value="'+ selectedValue +'"]').remove();
         });
     }
-
-    function AssignURL(e){
-        //verify a proper option is selected
-
-        var selectedValue = $(e).prev().find('option:selected').val();
-
-        if(selectedValue !='' ){
-
-            //remove from all lists and add to only this Assigned area
-            $(e).closest('.URLs').find('.targetAssigned tbody').append('<tr><td style="color:black!important; white-space:nowrap;">'+selectedValue +'</td><td><button onclick="removeAssigned(this); return false;"><i class="fa fa-times"></i></button></td></tr>')
-
-            //no go through and remove this item from ALL Selects
-            $.each($('#MasterAccord').find('select'), function(i,v){
-                $(v).children('option[value="'+ selectedValue +'"]').remove();
-            });
-        }
-    }
+}
   
+function removePanel(e){
+     
+    if(confirm('Are you sure you want to remove the '+ $(e).closest('button').find('.btnTitle').val() + ' panel')) {
+
+        var target = $(e).closest('.btnHeader');
+        console.log('target = ', target);
+        //loop through and grab all assigned URLS
+        $.each(target.find('.targetAssigned').find('button'), function(i,v){
+            removeAssigned(v);
+        });
+        
+        target.remove();
+    }
+}
+
 function createHealthTable( Data, Columns){
     Data = [].concat.apply([], Data);
     //loop through and gather all data
-    console.error('DT !2 ', Data);
+    
 
     
     var cData = Columns.map(function(v){
@@ -377,7 +649,7 @@ function createHealthTable( Data, Columns){
             });
             return {'mData':v};
     });
-    console.error('DT! ', cData);
+  
   
     var targetTable = $('#critDTContainer').find('table.display');
 
@@ -460,7 +732,7 @@ function createHealthTable( Data, Columns){
 
 function openAccord(e){
     
-    console.error('openAccord this 2 = ', $(e)[0]);
+ 
 
     //determine if the child is not being shown
     var container = $(e).next();
@@ -469,7 +741,7 @@ function openAccord(e){
     else container.hide();
 }
 
-
+// Add Accordian child Panel
 function addFolder(e){
     var container =  $(e).closest('.w3-container');
     console.log('local container = ',  $(e).closest('.w3-container'));
@@ -477,14 +749,14 @@ function addFolder(e){
     var newFolder = $('#tempAccord').clone();
     newFolder.attr('id', '');
     newFolder.removeClass('w3-hide');
-    console.error('b ', container);
+ 
 
         var rgb =container.css('background-color').replaceAll(' ', '');
  
         var hexValue = rgb2hex(rgb);
         console.log('return hex = ', hexValue);
         if(greyScale.indexOf(hexValue)!=-1){
-            console.error('FOUND ', greyScale.indexOf(hexValue));
+         
             var nextIndex = greyScale.indexOf(hexValue)+1; //yes i know this cancels out
             if(nextIndex>greyScale.length-1) nextIndex = greyScale.length-1;
             newFolder.find('.containerBody').css('background-color', greyScale[nextIndex]);
@@ -494,7 +766,7 @@ function addFolder(e){
 
 }
 
-    function getAccordItems(target){
+function getAccordItems(target){
      
         console.log('tree depth = ', treeDepth);
         var Tree={};
@@ -525,11 +797,6 @@ function addFolder(e){
         return Tree;
     }
     
-   treeLevel = {};
-   var firstLoop = true;
-
-    var allData= [];
-
 function changePage(e){
     console.log('change Page e ',  $(e).find('span:first'));
     if(!$(e).find('span:first').hasClass('disabledLink')){
@@ -541,206 +808,16 @@ function changePage(e){
     }
 }
 
-    function loadSettings(JSONData, target){
-        console.log('loadSettings Data ', JSONData);
-        console.log('loadSettings target ', target);
-        target.find('.btnTitle').val(JSONData.Title);
-        console.log('Urls ', JSONData.URLs);
-        treeDepth++;
-        var localDepth = treeDepth;
-        var origNavLoc;
-        JSONData['Level'] = localDepth;
-        console.log('tree depth ', localDepth + ' ' + JSONData.Title);
-        allData.push({'Title':JSONData.Title, 'URLs':JSONData.URLs})
-
-        //get the first navPoint
-        var location = $('#navListArea').find('.navPoint');
-
-        if(location.length==0) location = $('#navListArea'); //when we first start we are 
-
-         location.removeClass('navPoint');
-         
-
-         //determine if child ul exists, if so we need to stick to li
-        if(location.is('li') || location.is('nav')){
-            location.append('<ul><li class="navPoint" onclick="changePage(this); event.stopPropagation(); return false;"><span class="name">'+JSONData.Title+'</span></li></ul>');
-        }else location.append('<li class="navPoint" onclick="changePage(this); event.stopPropagation(); return false;"><span class="name">'+JSONData.Title+'</span></li>');
-        var origNavLi =location.find('.navPoint');
-
-        $.each(JSONData.URLs, function(i, v){
-            console.log('url v = ', v);
-            if(v != ''){
-                $(target.find('.URLs:first').find('table')[0]).find('tbody').append('<tr><td style="color:black; white-space:nowrap;">' + v + '</td><td><button onclick="removeAssigned(this); return false;"><i class="fa fa-times"></i></button></td></tr>')
-                allAssigned.push(v);
-            }
-        });
-
-        target.find('.containerBody').css('background-color', greyScale[localDepth]);
-        if( !treeLevel.hasOwnProperty(treeDepth))treeLevel[treeDepth]=[];
-        treeLevel[treeDepth].push(JSONData.Title);
-
-        $.each(JSONData.children, function(i,v){
-            treeDepth= localDepth;
-
-            console.log('JSON Child data ', v);
-            //create the html and send it as the target
-            var container =  $(target).find('.containerBody:first');
-            console.log('local container = ',  container);
-            var newFolder = $('#tempAccord').clone();
-            newFolder.attr('id', '');
-            newFolder.removeClass('w3-hide');
-     
-            container.append(newFolder);
- 
-            loadSettings(v, newFolder);
-                   //reset the target nav location starting class
-                   $('#navListArea').find('.navPoint').removeClass('navPoint');
-            //if(origNavLi.find('ul:first').length!=0){
-                origNavLi.find('ul:first').addClass('navPoint');
-            //}else 
-        });
-    }
-
-    function saveSettings(){
-        console.log('saveSettings()');
+function openTab(e, themeClass){
+    $(e).closest('.chartCanvas').find('.canvasArea').children().hide();
+    $(e).closest('.chartCanvas').find('[id$="year_'+ $(e).text() +'"]').show();
 
 
-        var allSettings = [];
-        var master = $('#sPage').find('#MasterAccord');
+    $.each($(e).closest('.canvasNAV').find('.w3-button'), function(ii,vv){
+            $(vv).removeClass(themeClass);
+    });
 
-        console.log('master = ', master);
-        PIITree = getAccordItems(master.closest('.btnHeader'));
-
-        console.log('piiTree', PIITree);
-        console.log('PIIAdminSettingsID ', PIIAdminSettingsID);
-        //now save tree as JSON
-        if(PIIAdminSettingsID!=-1){
-            SPHUpdateItemByID(list_settings, PIIAdminSettingsID, {'JSON':JSON.stringify(PIITree)}, window.location.origin + masterURL, SPHGetItemType(list_settings)).done(function(d){
-                window.location.reload();
-            }).fail(function(e){ alert('Failed Updating Settings! ' + e.responseText);});;
-        }else{
-            //new item needs to be created
-            SPHCreateListItem(list_settings, {'JSON':JSON.stringify(PIITree)}, window.location.origin + masterURL, SPHGetItemType(list_settings)).done(function(d){
-                window.location.reload();
-            }).fail(function(e){ alert('Failed Creating New Settings!' + e.responseText);});;
-        }
-    }
-
-    function createTile(simpleName, rPos){
-        console.log('name passed to createTile ', simpleName);
-        console.log('rPos passed to createTile ', rPos);
-    
-        var navTab;
-
-        if(rPos=='0'){
-            //main tab
-            //create the main nav Bar item
-            navTab= $('#templateNavBTN').clone();
-        }else{
-            //drop tab
-            navTab= $('#templateDropNavBTN').clone();
-        }
-
-        $(navTab).attr('id', '');
-
-        
-        if(rPos=='0'){
-            console.log('mainTAB    !#@#$   ',$(navTab).find('.mainTAB') );
-        
-            $(navTab).find('.mainTAB').attr('targetHTML', simpleName + '_Tile');
-         
-            $(navTab).find('.mainTAB').html($(navTab).find('.mainTAB').html().replace(/{tileTitle}/, simpleName));
-            //main tab
-            //append to the nav bar after removing the ID
-            $('#horzNav').append(navTab);
-        }else{
-            
-            console.log('childTAB    !#@#$   ',$(navTab) );
-        
-            $(navTab).attr('targetHTML', simpleName + '_Tile');
-         
-            $(navTab).html($(navTab).html().replace(/{tileTitle}/, simpleName));
-            console.log('child tab');
-            //drop tab
-            $('#horzNav').find('.mainTAB').last().next().append(navTab);
-        }
-        
-
-        //create the page
-        var p = $('#templateTile').clone();
-        $(p).attr('id', simpleName+'_Tile');
-        $(p).hide();
-
-        //append to tile area
-        $('#tileArea').append(p);
-
-        return $(p);
-    }
-
-function createRows(){
-    console.log('create ROWs!');
-
-    console.log('all items ', allItems);
-    for(prop in allItems){
-        var row = $('#rowTemplate').clone();
-        $(row).attr('id', '');
-        $(row).show();
-        $(row).find('.Path').val(prop);
-        $(row).find('.Path').prop('title', prop);
-        $('#matchRow').append(row);
-    };
-
-    
-}
-
-function numberToMonth(m){
-    var n='';
-    switch(m){
-        case '1':
-            n='Jan';
-            break;
-        case '2':
-            n='Feb';
-            break;
-        case '3':
-            n='Mar';
-            break;
-        case '4':
-            n='Apr';
-            break;
-        case '5':
-            n='May';
-            break;
-        case '6':
-            n='Jun';
-            break;
-        case '7':
-            n='Jul';
-            break;
-        case '8':
-            n='Aug';
-            break;
-        case '9':
-            n='Sep';
-            break;
-        case '10':
-            n='Oct';
-            break;
-        case '11':
-            n='Nov';
-            break;
-        case '12':
-            n='Dec';
-            break;
-    }
-
-    return n;
-}
-
-function openTab(e){
-    console.error('targetID', $(e).text());
-    $(e).closest('div').find('.canvasArea').children().hide();
-    $(e).closest('div').find('#year_'+ $(e).text()).show();
+    $(e).addClass(themeClass);
 }
 
 function findTargetChild(target, Name){
@@ -808,10 +885,6 @@ function createDataTable(Data, Columns, targetHTML, Name, dSet, relativeData){
         tableFooter.append('<th>'+value +'</th>');
     });	
 
-    console.error('mAP LABELS ', Data.map(function(i){return i.Date}));
-    console.error('map data ', Data.map(function(i){return i.Found}));
-    console.error('map data ', Data.map(function(i){return i.Reviewed}));
-
     //create relation
     var relArea = targetHTML.find('#Table_'+Name).find('.relation');
     
@@ -861,7 +934,7 @@ function createDataTable(Data, Columns, targetHTML, Name, dSet, relativeData){
         }
         index++;
     }
-    console.error('yearData ', yearData);
+     
     var lastYear = 0;
     var numYears = 0
     for(const y in yearData){
@@ -872,7 +945,7 @@ function createDataTable(Data, Columns, targetHTML, Name, dSet, relativeData){
         //create the tab
         //targetHTML.find('#Table_'+Name).find('.canvasNAV').append('<li class="w3-button" onclick="openTab(this);">'+y+'</li>');
         // /<div type="button"  class="w3-button w3-bar-item" targetHTML='settingsPage' onclick="changeTab('page', 'w3-theme-l1', this);return false;"><i class="fa fa-cogs fa-2x" ></i></div>  
-        targetHTML.find('#Table_'+Name).find('.canvasNAV').append('<div type="button" style="max-width:80px;"  class="w3-button w3-bar-item" targetHTML="Canvas_'+Name+'_year_'+y+'" onclick="changeTab('+"'chartType1',"+ "'w3-theme-l1',"+'this); return false;">'+y+'</div>');
+        targetHTML.find('#Table_'+Name).find('.canvasNAV').append('<div type="button" style="max-width:80px; display:inline-block;"  class="w3-button w3-bar-item" targetHTML="Canvas_'+Name+'_year_'+y+'" onclick="openTab(this, ' + "'"+ 'w3-theme-l2'+  "'" + '); return false;">'+y+'</div>');
 
 
         //create the canvas
@@ -883,7 +956,7 @@ function createDataTable(Data, Columns, targetHTML, Name, dSet, relativeData){
             canvas.hide();
         }else{
             //add the correct hteme class
-            targetHTML.find('#Table_'+Name).find('.canvasNAV').children().last().addClass('w3-theme-l1');
+            targetHTML.find('#Table_'+Name).find('.canvasNAV').children().last().addClass('w3-theme-l2');
         }
 
         //create chart
@@ -999,30 +1072,15 @@ function createDataTable(Data, Columns, targetHTML, Name, dSet, relativeData){
     catch(error){ console.log('error ' + error); } 
 }
 
-function simplifiedTitle(long_title){
-        $.each(allSettingsData, function(i,v){
-            $('#matchRow').find('.Path input').each(function(ii,vv){                     
-                if($(vv).val()==v.Path){
-                    //match found, so put the Org in there
-                    return(v.Org);
-                }
-           })
-        });
-        return long_title;
-}
-    
-
-    function SetupTables(data, PIIResults){
-        console.log('setupTables ', data);
-        console.log('setupTables result s', PIIResults);
-        
+function SetupTables(data, PIIResults){
+        console.log('setting up tables with %o data according to the structure: %o', PIIResults, data);
+        // loop through the data tree structure with the goal of matching it to the data from PII Results
         $.each(data, function(i,v){
             var combined = [];
             var dataSet = {};
-            var sumSet=0;
-  
             var leastYear =new Date().getFullYear();
             var maxYear =0;
+            // from the structure look at the children URLs
             $.each(v.URLs, function(ii,vv){
                 //combine actual data
                 var target = PIIResults.filter(function(item){return item.Title==vv;});
@@ -1046,18 +1104,17 @@ function simplifiedTitle(long_title){
                 }else console.error('WARNING no target for PII Results found : ', vv);
 
             });
-            //sumSet['sum']= sumSet['sum']/combined.length;
-            //console.log('sum ', sumSet);
+           
             if(combined.length>0){
+                console.log('determined that the items for %o is : %o', v, combined);
                 combined.sort(function(a,b){
                    return (a.Date - b.Date)                         
                 });
-                
+                //The goal below is to fill in any months where there is no data, up to the current month
                 var y = leastYear
                 do{
                     //fill in months
                     for(prop in dataSet){
-                        
                         if(dataSet[prop].hasOwnProperty(y)){
                             var maxMonth = 12;
                            if(y==maxYear ){
@@ -1082,7 +1139,7 @@ function simplifiedTitle(long_title){
                 }while(y <maxYear);
                 
 
-                    //try to incorporate average bacck
+                    //try to incorporate average back
                     //using Name and the actual data
                     //  tree structure = tData
                     //  actual data to search through = 
@@ -1116,140 +1173,33 @@ function simplifiedTitle(long_title){
 
 
                     }
+                //finally create the DataTAble
                 createDataTable(combined, ['Date', 'Page', 'Found', 'Reviewed', 'User'], $('#templateTile'), v.Title, dataSet , k);
             }else{
+                console.log('determined NO items for %o', v);
                 //grey out nav option
                 $('nav').find('span:contains("'+v.Title+'")').addClass('disabledLink');
             }
         });
 
-        //ensure we click on the top level
-        $('#templateTile').find('[id^="Table_"]:first').click();
-    }
+    //ensure we click on the top level
+    $('#templateTile').find('[id^="Table_"]:first').click();
+}
 
-    //Checks if lists that are required exists or not
-    //   if not it will attempt to create the list
-    function listCheck(){
-        console.log('Main.html : listCheck(): url ', _spPageContextInfo.webAbsoluteUrl);
-        var allPromises=[];
-        var settingsExist=false;
-        var tabCategory={}; 
-        var twoCat = [];
-        var threeCat =[];
-        var fourCat = [];
-
-
-
-        allPromises.push(SPHGetListItems(list_settings, '?$select=JSON,Id', window.location.origin + masterURL).done(function(data){
-            if(data.length>0) {
-                console.log('data[0] = ', JSON.parse(data[0].JSON));
-                
-                PIIAdminSettingsID= data[0].Id;
-                settingsExist=true;
-                //determine which settings are not assigned
-                //UnAssigned = JSON.parse(data[0].JSON).URLs
-                tData = JSON.parse(data[0].JSON);
-                loadSettings(tData, $('#MasterAccord').closest('.btnHeader'));
-                console.log('all Assigned = ', allAssigned);
-                console.log('tData ', tData);
-                console.log('allData ', allData);
-
-                allPromises.push(SPHGetListItems(list_admin, '?$select=Title,Id,JSON', window.location.origin + masterURL).done(function(adminDATA){
-                    if(adminDATA.length>0){
-                        SetupTables(allData, adminDATA);
-                        setupHome(tData, adminDATA);
-                        createHealthTable(adminDATA.map(function(l){
-                            var j;
-                            console.error('DT !! ', l);
-                            j= JSON.parse(l.JSON);
-                            //figure out Org based on Title / URL
-                            var org = URL2Org(l.Title);
-                            //add to each element
-                            $.each(j, function(i,v){
-                                v['Org'] = org;
-                            });
-                            
-                            return j}), ['Date', 'Org', 'Found', 'Reviewed', 'User']);
-                        var allUnassigned = adminDATA.filter(function(item){
-                             return allAssigned.indexOf(item.Title) ==-1 
-                        })
-
-                        //now fill up the Selects
-                        $.each($('#MasterAccord').find('select'), function(i,v){
-                            $.each(allUnassigned, function(i,vv){
-                                console.log('vv - ', vv);
-                                $(v).append('<option value="'+vv.Title+'">'+vv.Title+'</option>');
-                            });
-                        });
-
-                        console.log('adminData ', adminDATA[0].Id);
-
-                    }else alert('No Data found in the PIIAdmin list!');
-
-                    //make sure first tab is selected
-                    $($('#horzNav').find('.w3-button:visible')[0]).click();
-                }));
-
-            }
-        }).fail(function(e){ 
-            //we try to create the main list here
-            console.log('PIIAdmin Settings List not detected. Attepmting to create it now.'); 
-            allPromises.push(createList(list_settings, window.location.origin + masterURL).done(function(data){
-                allPromises.push(addFieldToList(list_settings, [{'Name':'JSON', 'Type':'Note'}],  window.location.origin + masterURL).done(function(){console.log('created Field');}).fail(function(e){ console.error('Failed creating field! ' + e);}));
-                PIIAdminSettingsID=-1; //indicate that the list didnt exist before
-            }));
-        }));
-
-
-
-
-        $.when.apply($, allPromises).done(function(){
-            console.log('all Promises done');
-            $( "#matchRow" ).sortable({
-                placeholder: "ui-state-highlight"
-            });
-            $( "#matchRow" ).disableSelection();
-            
-        });
-
-    }
-
-    $(document).ready(function(){
-        $("#homeButton").click();
+function HomeTab(JSONData){
+        
+    $.each(JSONData.URLs, function(i, v){
+        console.log('HomeTab url v = ', v);
+        if(!URLOrg.hasOwnProperty(v)) URLOrg[v]=JSONData.Title;
     });
 
-    
+    $.each(JSONData.children, function(i,v){
+        console.log('HomeTab JSON Child data ', v);
+        HomeTab(v);
+    });
+}
 
-    function setupHome(JSONData, indiv){
-        //console.log('PII Tree', data);
-        //console.log('PII', indiv);
-
-        console.log('tree depth ', JSONData.Level + ' ' + JSONData.Title);
-        HomeTab(JSONData);
-      
-    }
-
-    function URL2Org(URL){
-        if(URLOrg.hasOwnProperty(URL)){
-            return  URLOrg[URL];
-        }else return '';
-    }
-
-    function HomeTab(JSONData){
-        
-        $.each(JSONData.URLs, function(i, v){
-            console.log('HomeTab url v = ', v);
-            if(!URLOrg.hasOwnProperty(v)) URLOrg[v]=JSONData.Title;
-        });
-
-        $.each(JSONData.children, function(i,v){
-            console.log('HomeTab JSON Child data ', v);
-            HomeTab(v);
-        });
-    }
-
-
-    function changeTab2(targetClass, themeClass, e, chart){
+function changeTab2(targetClass, themeClass, e, chart){
         console.log('e was passed ', e);
         console.log('targetclass was passed ', targetClass);
         console.log('themeclass was passed ', themeClass);
@@ -1261,7 +1211,6 @@ function simplifiedTitle(long_title){
         console.log('parent ', $(e).closest('.nav'));
   
         $.each($(e).closest('.nav').find('.w3-button'), function(ii,vv){
-            console.log('removing %s from %o', themeClass, vv);
             $(vv).removeClass(themeClass);
         });
 
@@ -1287,10 +1236,9 @@ function simplifiedTitle(long_title){
             $(e).closest('.w3-dropdown-hover').find('.mainTAB').addClass('themeClass');
         }
         $(e).addClass(themeClass);
-    }
+}
 
-
-    function changeTab(targetClass, themeClass, e){
+function changeTab(targetClass, themeClass, e){
         console.log('e was passed ', e);
         console.log('targetclass was passed ', targetClass);
         console.log('themeclass was passed ', themeClass);
@@ -1305,7 +1253,7 @@ function simplifiedTitle(long_title){
             console.log('removing %s from %o', themeClass, vv);
             $(vv).removeClass(themeClass);
         });
-        console.error('target !!!!!!!!! ',  $(e).parent().next().find("#"+$(e).attr('targetHTML')));
+       
         $(e).parent().next().find("#"+$(e).attr('targetHTML')).fadeIn('slow');
   
         //adjust for if the selection was from the dropdownNav
@@ -1316,10 +1264,8 @@ function simplifiedTitle(long_title){
             $(e).closest('.w3-dropdown-hover').find('.mainTAB').addClass('themeClass');
         }
         $(e).addClass(themeClass);
-    }
+}
 
- 
- 
 function createList(listName, listPath) {
     console.log('list path = ', listPath);
     var deferred = $.Deferred();
